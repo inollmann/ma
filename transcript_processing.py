@@ -1,0 +1,236 @@
+import json
+import pysrt
+import cv2 as cv
+import numpy as np
+import os.path
+import pickle
+import csv
+from PIL import Image, ImageDraw, ImageFont
+from dataset import DgsDataset
+from seq2seq import clean_token
+
+
+def read_json(path):
+    with open(path, 'r') as f:
+        return json.load(f)
+
+
+def draw_keypoints(img, part, keypoints):
+    format_dict = {'pose_keypoints_2d': [(0, 255, 0), 5],
+                   'face_keypoints_2d': [(0, 255, 255), 1],
+                   'hand_left_keypoints_2d': [(0, 0, 255), 3],
+                   'hand_right_keypoints_2d': [(255, 0, 0), 3]}
+    color = format_dict[part][0]
+    radius = format_dict[part][1]
+    keypoints = np.array(keypoints).reshape(int(len(keypoints)/3), 3)
+    for point in keypoints:
+        cv.circle(img, (int(point[0]), int(point[1])), radius, color, -1)
+
+    return img
+
+
+def get_track(subtitle):
+    if subtitle.islower() or subtitle == '[MG]':   # DGS mouth
+        return 2
+    elif subtitle.isupper() or subtitle[0] == '$' or "||" in subtitle:  # DGS sign
+        return 1
+    elif subtitle[-1] in ".!?/:":   # DE sentence
+        return 0
+    else:
+        raise ValueError(f'Subtitle could not be classified: {subtitle}')
+
+
+def is_processed(transcript_id):
+    with open('vocab/landmarks/dw-dgs/_completed_transcripts.txt', 'r') as f:
+        return transcript_id in f.read().splitlines()
+
+
+class TranscriptManager:
+    def __init__(self, pose_file, subtitle_file):
+        self.pose_data = read_json(pose_file)
+        self.subtitle_data = pysrt.open(subtitle_file)
+        self.num_frames = len(self.pose_data[0]['frames'])
+        self.recording_length = self.subtitle_data[-1].end.ordinal / 1000
+        self.fps = int((self.num_frames - 1) / self.recording_length)
+        self.subtitle_dict = self.subtitle_dict()
+        self.script = self.frame2subtitles()
+        self.img_size = (self.pose_data[0]['height'], self.pose_data[0]['width'], 3)
+
+
+    def ms2frame(self, ms):
+        return int(self.fps * ms / 1000)
+
+
+    def subtitle_dict(self):
+        return {e.index-1: [self.ms2frame(e.start.ordinal), self.ms2frame(e.end.ordinal), e.text[0].upper(), e.text[3:]] for e in self.subtitle_data.data}
+
+
+    def frame2subtitles(self):
+        script = {frame: {'A': ["", "", ""], 'B': ["", "", ""], 'C': ["", "", ""]} for frame in range(self.num_frames)}
+        for _, (start, end, person, text) in self. subtitle_dict.items():
+            track = get_track(text)
+            for i in range(max(start-1, 0), end):
+                script[i][person][track] = text
+        return script
+
+
+    def visualize(self, wait_between_frames=1):
+
+        for (idx, frame_a), (_, frame_b) in zip(self.pose_data[0]['frames'].items(), self.pose_data[1]['frames'].items()):
+
+            wait_key = cv.waitKey(max(wait_between_frames, 0))
+            if wait_key == 27:  # ESC
+                break
+            idx = int(idx)
+            pose_a = frame_a['people'][0]
+            pose_b = frame_b['people'][0]
+            img_a = np.zeros(self.img_size, dtype=np.uint8)
+            img_b = np.zeros(self.img_size, dtype=np.uint8)
+
+            for (key, points_a), (_, points_b) in zip(pose_a.items(), pose_b.items()):
+                if points_a:
+                    img_a = draw_keypoints(img_a, key, points_a)
+                    img_b = draw_keypoints(img_b, key, points_b)
+            img_a = self.write_subtitles(img_a, 'A', idx)
+            img_b = self.write_subtitles(img_b, 'B', idx)
+            cv.imshow('DGS-Korpus', np.concatenate((img_a[:, 300:-300], img_b[:, 300:-300]), axis=1)[50:, :])
+            cv.setWindowProperty('DGS-Korpus', cv.WND_PROP_TOPMOST, 1)
+
+        cv.destroyAllWindows()
+
+
+    def write_subtitles(self, img, person, idx):
+        color = (255, 255, 255)
+        font = ImageFont.truetype("utils/FreeMono.ttf", 15)
+        img_pil = Image.fromarray(img)
+        draw = ImageDraw.Draw(img_pil)
+
+        subs = self.script[idx][person]
+        draw.text((320, 650), subs[0], color, font)
+        draw.text((320, 680), 'G: '+subs[1], color, font)
+        draw.text((700, 680), 'M: '+subs[2], color, font)
+        img = np.array(img_pil)
+        return img
+
+
+    def get_translations(self):
+        sentences = []
+        translations = []
+        cur_de = ""
+        cur_dgs = ""
+        recorded_dgs = []
+        recording_state = 0  # 0: sleep, 1: record translation
+        for person in ['A', 'B']:
+            for idx, content in self.script.items():
+
+                if content[person][0] and content[person][0] != cur_de and recording_state == 0:
+                    recording_state = 1
+                elif content[person][0] != cur_de and recording_state == 1:
+                    translations.append(recorded_dgs)
+                    recorded_dgs = []
+                    if not content[person][0]:
+                        recording_state = 0
+
+                cur_de = content[person][0]
+                if cur_de and recording_state == 1 and cur_de not in sentences:
+                    sentences.append(cur_de)
+                if content[person][1] and content[person][1] != cur_dgs:
+                    recorded_dgs.append(content[person][1])
+                cur_dgs = content[person][1]
+
+        return sentences, translations
+
+
+    def log_pose_data(self):
+        transcript_id = self.pose_data[0]['id']
+        if is_processed(transcript_id):
+            print(f"Transcript {transcript_id} has already been processed.")
+            return
+
+        folder = 'vocab/landmarks/dw-dgs/'
+        ds = DgsDataset('vocab/translations/dgs_korpus.pkl', simplify=True)
+        entry_counter = 0
+
+        for _, entry in self.subtitle_dict.items():
+            token = entry[3]
+
+            if get_track(token) == 1 and token in ds.vocabulary:
+                file_path = folder + clean_token(token) + ".pkl"
+                key = self.pose_data[0]['id'] + " " + str(entry[0])
+
+                if os.path.isfile(file_path):
+                    with open(file_path, 'rb') as f:
+                        landmark_dict = pickle.load(f)
+                else:
+                    landmark_dict = {}
+
+                if key not in landmark_dict.keys():
+                    if entry[2] == "A":
+                        person = 0
+                    elif entry[2] == "B":
+                        person = 1
+                    else:
+                        raise ValueError("Person could not be identified")
+                    landmarks = {'person': entry[2],
+                                 'front': {'pose': [], 'face': [], 'hand_left': [], 'hand_right': []},
+                                 'side': {'pose': [], 'face': [], 'hand_left': [], 'hand_right': []}}
+
+                    for frame in range(entry[0], entry[1]):
+                        landmarks['front']['pose'].append(
+                            self.pose_data[person]['frames'][str(frame)]['people'][0]['pose_keypoints_2d'])
+                        landmarks['front']['face'].append(
+                            self.pose_data[person]['frames'][str(frame)]['people'][0]['face_keypoints_2d'])
+                        landmarks['front']['hand_left'].append(
+                            self.pose_data[person]['frames'][str(frame)]['people'][0]['hand_left_keypoints_2d'])
+                        landmarks['front']['hand_right'].append(
+                            self.pose_data[person]['frames'][str(frame)]['people'][0]['hand_right_keypoints_2d'])
+                        landmarks['side']['pose'].append(
+                            self.pose_data[2]['frames'][str(frame)]['people'][person]['pose_keypoints_2d'])
+                        landmarks['side']['face'].append(
+                            self.pose_data[2]['frames'][str(frame)]['people'][person]['face_keypoints_2d'])
+                        landmarks['side']['hand_left'].append(
+                            self.pose_data[2]['frames'][str(frame)]['people'][person]['hand_left_keypoints_2d'])
+                        landmarks['side']['hand_right'].append(
+                            self.pose_data[2]['frames'][str(frame)]['people'][person]['hand_right_keypoints_2d'])
+
+                    landmark_dict[key] = landmarks
+                    entry_counter += 1
+
+                with open(file_path, 'wb') as f:
+                    pickle.dump(landmark_dict, f)
+
+        with open('vocab/landmarks/dw-dgs/_completed_transcripts.txt', 'a') as f:
+            f.write(transcript_id + "\n")
+
+        print(f"{entry_counter} new gestures added.")
+
+
+    def check_landmark_completion(self, check_token=None):
+        ds = DgsDataset('vocab/translations/dgs_korpus.pkl', simplify=True)
+        folder = 'vocab/landmarks/dw-dgs/'
+        landmarks_recorded = {'completed': [], 'pending': []}
+        for token in ds.vocabulary:
+            if os.path.isfile(folder + clean_token(token) + ".pkl"):
+                landmarks_recorded['completed'].append(token)
+            else:
+                landmarks_recorded['pending'].append(token)
+        print(f"{len(landmarks_recorded['completed']) / len(ds.vocabulary) * 100 :.0f}% of vocabulary completed.")
+
+        if check_token is not None:
+            completed = check_token in landmarks_recorded['completed']
+            return landmarks_recorded, completed
+        else:
+            return landmarks_recorded
+
+
+
+#%%
+tm = TranscriptManager('transcripts/pose/1413451-11105600-11163240_openpose.json',
+                       'transcripts/srt/1413451-11105600-11163240_de.srt')
+
+#%%
+# de, dgs = tm.get_translations()
+# tm.visualize(5)
+tm.log_pose_data()
+status = tm.check_landmark_completion()
+
