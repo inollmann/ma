@@ -1,0 +1,98 @@
+[
+    {
+        "de": ["ich", "gehe", "morgen", "in", "die", "Schule"],
+        "dgs": ["ich", "morgen", "schule", "gehen"]
+    },
+    {
+        "de": ["er", "trinkt", "heute", "Kaffee"],
+        "dgs": ["er", "heute", "kaffee", "trinken"]
+    },
+    {
+        "de": ["wir", "essen", "zusammen", "Abendbrot"],
+        "dgs": ["wir", "zusammen", "abendbrot", "essen"]
+    },
+    {
+        "de": ["du", "kannst", "Auto", "fahren"],
+        "dgs": ["du", "können", "auto", "fahren"]
+    },
+    {
+        "de": ["sie", "liest", "ein", "Buch"],
+        "dgs": ["sie", "buch", "lesen"]
+    },
+    {
+        "de": ["ich", "gehe", "heute", "schwimmen"],
+        "dgs": ["ich", "heute", "schwimmen", "gehen"]
+    },
+    {
+        "de": ["der", "Hund", "schläft", "jetzt"],
+        "dgs": ["hund", "jetzt", "schlafen"]
+    },
+    {
+        "de": ["wir", "treffen", "uns", "am", "Bahnhof"],
+        "dgs": ["wir", "treffen", "bahnhof"]
+    },
+    {
+        "de": ["ich", "habe", "Durst"],
+        "dgs": ["ich", "durst", "haben"]
+    },
+    {
+        "de": ["sie", "spielt", "gerne", "Fußball"],
+        "dgs": ["sie", "gerne", "fußball", "spielen"]
+    },
+    {
+        "de": ["du", "suchst", "eine", "Arbeit"],
+        "dgs": ["du", "arbeit", "suchen"]
+    },
+    {
+        "de": ["ich", "gebe", "dir", "das", "Brot"],
+        "dgs": ["ich", "dir", "Brot", "geben"]
+    },
+    {
+        "de": ["ich", "kann", "nicht", "Fahrrad", "fahren"],
+        "dgs": ["ich", "radfahren", "nicht", "können"]
+    },
+    {
+        "de": ["ich", "versuche", "zu", "kommen"],
+        "dgs": ["ich", "kommen", "versuchen"]
+    },
+    {
+        "de": ["ich", "habe", "keine", "Lust", "die", "Wohnung", "zu", "putzen"],
+        "dgs": ["ich", "wohnung", "putzen", "keine lust haben"]
+    },
+    {
+        "de": ["gestern", "hat", "eine", "Frau", "meiner", "Schwester", "ein", "Buch", "gegeben"],
+        "dgs": ["gestern", "frau", "mein", "schwester", "Buch", "geben"]
+    },
+    {
+        "de": ["hoffentlich", "kauft", "er", "einen", "Hund"],
+        "dgs": ["hoffentlich", "er", "hund", "kaufen"]
+    },
+    {
+        "de": ["ich", "habe", "in", "der", "Universität", "einen", "netten", "Mann", "kennengelernt"],
+        "dgs": ["gestern", "universität", "ich", "mann", "nett", "kennenlernen"]
+    },
+    {
+        "de": ["ein", "Haus", "steht", "im", "Wald"],
+        "dgs": ["wald", "haus", "stehen"]
+    },
+    {
+        "de": ["was", "möchten", "Sie", "bestellen"],
+        "dgs": ["du", "bestellen", "wünschen", "was"]
+    },
+    {
+        "de": ["warum", "willst", "du", "DGS", "lernen"],
+        "dgs": ["du", "d", "g", "s", "lernen", "wünschen", "warum"]
+    },
+    {
+        "de": ["ich", "möchte", "nichts", "essen"],
+        "dgs": ["ich", "essen", "wünschen", "nichts"]
+    },
+    {
+        "de": ["ich", "habe", "deine", "Freundin", "noch", "nicht", "kennengelernt"],
+        "dgs": ["ich", "dein", "Freundin", "kennenlernen", "noch nicht"]
+    },
+    {
+        "de": ["mein", "Lieblingsessen", "ist", "Italienisch"],
+        "dgs": ["essen", "ich", "italienisch", "lieben"]
+    }
+]
