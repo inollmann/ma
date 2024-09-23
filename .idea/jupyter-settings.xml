@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JupyterPersistentConnectionParameters">
+    <option name="knownRemoteServers">
+      <list>
+        <JupyterConnectionParameters>
+          <option name="authType" value="jupyterhub" />
+          <option name="urlString" value="https://jupyterhub.ikt.fh-dortmund.de:8000" />
+          <authParams2>
+            <map>
+              <entry key="username" value="ivnol001" />
+            </map>
+          </authParams2>
+        </JupyterConnectionParameters>
+      </list>
+    </option>
+    <option name="moduleParameters">
+      <map>
+        <entry key="$USER_HOME$/OneDrive/Dokumente/Master BMIT/Statistik/Python Projekt 2/.idea/Python Projekt 2.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+              <option name="sdkHomePath" value="C:\Users\ivono\Documents\GitHub\MPKurs\venv\Scripts\python.exe" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

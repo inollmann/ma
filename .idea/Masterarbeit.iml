@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/Dokumente" />
+      <excludeFolder url="file://$MODULE_DIR$/libs/fastText/build/lib.win-amd64-cpython-310/fasttext" />
+      <excludeFolder url="file://$MODULE_DIR$/libs/fastText/build/temp.win-amd64-cpython-310/Release/python/fasttext_module/fasttext" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="PyDocumentationSettings">
+    <option name="renderExternalDocumentation" value="true" />
+  </component>
+</module>
