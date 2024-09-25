@@ -2,6 +2,7 @@ import json
 import pysrt
 import cv2 as cv
 import numpy as np
+import os
 import os.path
 import pickle
 import csv
@@ -30,14 +31,15 @@ def draw_keypoints(img, part, keypoints):
 
 
 def get_track(subtitle):
-    if subtitle.islower() or subtitle == '[MG]':   # DGS mouth
+    if subtitle.islower() or '[MG' in subtitle or '[LM' in subtitle:   # DGS mouth
         return 2
     elif subtitle.isupper() or subtitle[0] == '$' or "||" in subtitle:  # DGS sign
         return 1
-    elif subtitle[-1] in ".!?/:":   # DE sentence
+    elif subtitle[-1] in ".!?/:" or subtitle[-2] in ".!?/:":   # DE sentence
         return 0
     else:
-        raise ValueError(f'Subtitle could not be classified: {subtitle}')
+        return 9
+        # raise ValueError(f'Subtitle could not be classified: {subtitle}')
 
 
 def is_processed(transcript_id):
@@ -45,16 +47,36 @@ def is_processed(transcript_id):
         return transcript_id in f.read().splitlines()
 
 
+def check_landmark_completion(check_token=None):
+    ds = DgsDataset('vocab/translations/dgs_korpus.pkl', simplify=True)
+    folder = 'vocab/landmarks/dw-dgs/'
+    landmarks_recorded = {'completed': [], 'pending': []}
+    for token in ds.vocabulary:
+        if os.path.isfile(folder + clean_token(token) + ".pkl"):
+            landmarks_recorded['completed'].append(token)
+        else:
+            landmarks_recorded['pending'].append(token)
+    print(f"{len(landmarks_recorded['completed']) / len(ds.vocabulary) * 100 :.0f}% of vocabulary completed.")
+
+    if check_token is not None:
+        completed = check_token in landmarks_recorded['completed']
+        return landmarks_recorded, completed
+    else:
+        return landmarks_recorded
+
+
 class TranscriptManager:
-    def __init__(self, pose_file, subtitle_file):
+    def __init__(self, pose_file, subtitle_file, vis_mode=True):
         self.pose_data = read_json(pose_file)
+        self.transcript_id = self.pose_data[0]['id']
         self.subtitle_data = pysrt.open(subtitle_file)
         self.num_frames = len(self.pose_data[0]['frames'])
         self.recording_length = self.subtitle_data[-1].end.ordinal / 1000
         self.fps = int((self.num_frames - 1) / self.recording_length)
         self.subtitle_dict = self.subtitle_dict()
-        self.script = self.frame2subtitles()
-        self.img_size = (self.pose_data[0]['height'], self.pose_data[0]['width'], 3)
+        if vis_mode:
+            self.script = self.frame2subtitles()
+            self.img_size = (self.pose_data[0]['height'], self.pose_data[0]['width'], 3)
 
 
     def ms2frame(self, ms):
@@ -69,7 +91,12 @@ class TranscriptManager:
         script = {frame: {'A': ["", "", ""], 'B': ["", "", ""], 'C': ["", "", ""]} for frame in range(self.num_frames)}
         for _, (start, end, person, text) in self. subtitle_dict.items():
             track = get_track(text)
-            for i in range(max(start-1, 0), end):
+
+            if track == 9:
+                text = "_"
+                track = 0
+
+            for i in range(max(start-1, 0), min(end, self.num_frames-1)):
                 script[i][person][track] = text
         return script
 
@@ -114,37 +141,48 @@ class TranscriptManager:
 
 
     def get_translations(self):
-        sentences = []
-        translations = []
-        cur_de = ""
-        cur_dgs = ""
-        recorded_dgs = []
-        recording_state = 0  # 0: sleep, 1: record translation
-        for person in ['A', 'B']:
-            for idx, content in self.script.items():
+        sub_de, sub_dgs, sub_mouth = [], [], []
+        list_de, list_dgs, list_mouth = [], [], []
 
-                if content[person][0] and content[person][0] != cur_de and recording_state == 0:
-                    recording_state = 1
-                elif content[person][0] != cur_de and recording_state == 1:
-                    translations.append(recorded_dgs)
-                    recorded_dgs = []
-                    if not content[person][0]:
-                        recording_state = 0
+        for _, subtitle in self.subtitle_dict.items():
+            if get_track(subtitle[3]) ==0:
+                sub_de.append(subtitle)
+            elif get_track(subtitle[3]) == 9:
+                subtitle[3] = " "
+                sub_de.append(subtitle)
+            elif get_track(subtitle[3]) == 1:
+                sub_dgs.append(subtitle)
+            else:
+                sub_mouth.append(subtitle)
 
-                cur_de = content[person][0]
-                if cur_de and recording_state == 1 and cur_de not in sentences:
-                    sentences.append(cur_de)
-                if content[person][1] and content[person][1] != cur_dgs:
-                    recorded_dgs.append(content[person][1])
-                cur_dgs = content[person][1]
+        for sentence in sub_de:
+            cur_dgs, cur_mouth = [], []
+            de_start, de_end, de_person, cur_de = sentence[0], sentence[1], sentence[2], sentence[3]
 
-        return sentences, translations
+            if not cur_de or cur_de.isspace():
+                continue
+
+            for tokens in sub_dgs:
+                start, end, person = tokens[0], tokens[1], tokens[2]
+                if start >= de_start-1 and end <= de_end+1 and person == de_person:
+                    cur_dgs.append(tokens[3])
+
+            for mouthings in sub_mouth:
+                start, end, person = mouthings[0], mouthings[1], mouthings[2]
+                if start >= de_start-1 and end <= de_end+1 and person == de_person:
+                    cur_mouth.append(mouthings[3])
+
+            if cur_de and cur_dgs:
+                list_de.append(cur_de)
+                list_dgs.append(cur_dgs)
+                list_mouth.append(cur_mouth)
+
+        return list_de, list_dgs, list_mouth
 
 
     def log_pose_data(self):
-        transcript_id = self.pose_data[0]['id']
-        if is_processed(transcript_id):
-            print(f"Transcript {transcript_id} has already been processed.")
+        if is_processed(self.transcript_id):
+            print(f"Transcript {self.transcript_id} has already been processed.")
             return
 
         folder = 'vocab/landmarks/dw-dgs/'
@@ -200,37 +238,62 @@ class TranscriptManager:
                     pickle.dump(landmark_dict, f)
 
         with open('vocab/landmarks/dw-dgs/_completed_transcripts.txt', 'a') as f:
-            f.write(transcript_id + "\n")
+            f.write(self.transcript_id + "\n")
 
         print(f"{entry_counter} new gestures added.")
 
 
-    def check_landmark_completion(self, check_token=None):
-        ds = DgsDataset('vocab/translations/dgs_korpus.pkl', simplify=True)
-        folder = 'vocab/landmarks/dw-dgs/'
-        landmarks_recorded = {'completed': [], 'pending': []}
-        for token in ds.vocabulary:
-            if os.path.isfile(folder + clean_token(token) + ".pkl"):
-                landmarks_recorded['completed'].append(token)
+#%%
+if __name__ == '__main__':
+    srt_folder = 'transcripts/srt/'
+    openpose_folder = 'transcripts/pose/'
+    translations_file = 'vocab/translations/from_transcripts.pkl'
+
+    start_idx = 0
+
+    if not start_idx:
+        with open(translations_file, 'wb') as f:
+            pickle.dump({'transcript': [], 'index': [], 'de': [], 'dgs': [], 'mouth': []}, f)
+
+    for i, srt_file_name in enumerate(os.listdir(srt_folder)[start_idx:]):
+        # try:
+        if True:
+            srt_file = srt_folder + srt_file_name
+            transcript_id = srt_file_name.split('_de.srt')[0]
+            print(i, transcript_id)
+            openpose_file = openpose_folder + transcript_id + '_openpose.json'
+
+            if not os.path.isfile(openpose_file):
+                print("Nope")
+                continue
+
+            tm = TranscriptManager(openpose_file, srt_file, vis_mode=False)
+            de, dgs, mouth = tm.get_translations()
+
+            if len(de) == len(dgs):
+                with open(translations_file, 'rb') as f:
+                    translations = pickle.load(f)
+
+                num_translations = len(de)
+                translations['transcript'] = translations['transcript'] + [tm.transcript_id] * num_translations
+                translations['index'] = translations['index'] + list(range(num_translations))
+                translations['de'] = translations['de'] + de
+                translations['dgs'].extend(dgs)
+                translations['mouth'].extend(mouth)
+
+                with open(translations_file, 'wb') as f:
+                    pickle.dump(translations, f)
             else:
-                landmarks_recorded['pending'].append(token)
-        print(f"{len(landmarks_recorded['completed']) / len(ds.vocabulary) * 100 :.0f}% of vocabulary completed.")
+                print(f"Incompatible sizes.\tde: {len(de)}\tdgs: {len(dgs)}")
 
-        if check_token is not None:
-            completed = check_token in landmarks_recorded['completed']
-            return landmarks_recorded, completed
-        else:
-            return landmarks_recorded
-
+        # except Exception as e:
+            # print(i, e)
 
 
 #%%
-tm = TranscriptManager('transcripts/pose/1413451-11105600-11163240_openpose.json',
-                       'transcripts/srt/1413451-11105600-11163240_de.srt')
-
-#%%
+# tm = TranscriptManager(openpose_folder + os.listdir(openpose_folder)[0], srt_folder + os.listdir(srt_folder)[0])
 # de, dgs = tm.get_translations()
 # tm.visualize(5)
-tm.log_pose_data()
-status = tm.check_landmark_completion()
+# tm.log_pose_data()
+# status = tm.check_landmark_completion()
 

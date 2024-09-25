@@ -32,7 +32,7 @@ def clean_token(token):
     to_remove = ["$GEST-NM-", "$GEST-", "$NUM-", "$EXTRA-LING-"]
     number = ''
 
-    if "$NUM" in token:
+    if "$NUM" in token or "$INDEX" in token:
         match = pattern.search(token)
         if match:
             number = match.group(1)

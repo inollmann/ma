@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5aebd690-4a8b-49f2-9b6d-1dc1a962dab3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/fastText/python/fasttext_module/fasttext/pybind/fasttext_pybind.cc" beforeDir="false" afterPath="$PROJECT_DIR$/libs/fastText/python/fasttext_module/fasttext/pybind/fasttext_pybind.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/fastText/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/fastText/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq2seq.py" beforeDir="false" afterPath="$PROJECT_DIR$/seq2seq.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transcript_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/transcript_processing.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package.json" />
+        <option value="Jupyter Notebook" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;inollmann&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/facebookresearch/fastText.git&quot;,
+    &quot;accountId&quot;: &quot;1e09c4e6-43ac-4860-9a0a-ff5f44b65b11&quot;
+  }
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2k9qBJFccB0lCKwJRMY5E0679bM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Locals": "true",
+    "Python.app (1).executor": "Run",
+    "Python.app.executor": "Run",
+    "Python.code_test.executor": "Run",
+    "Python.embed_vocabulary.executor": "Run",
+    "Python.holistic_landmarker_test.executor": "Debug",
+    "Python.landmarkExtraction.executor": "Run",
+    "Python.modify_dataset.executor": "Run",
+    "Python.test.executor": "Debug",
+    "Python.transcript_processing.executor": "Run",
+    "Python.word2vec_test.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/OneDrive - FHDO - PROD/Master BMIT/masterarbeit",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="Masterarbeit" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="Masterarbeit" />
+      </console-settings>
+    </option>
+    <option name="myUseExistingConsole" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\OneDrive - FHDO - PROD\Master BMIT\masterarbeit\vocab\words" />
+      <recent name="D:\OneDrive - FHDO - PROD\Master BMIT\masterarbeit\vocab" />
+      <recent name="jupyterhub.ikt.fh-dortmund.de:8000" />
+      <recent name="D:\OneDrive - FHDO - PROD\Master BMIT\masterarbeit\models\word_embedding" />
+      <recent name="D:\OneDrive - FHDO - PROD\Master BMIT\masterarbeit\models" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.transcript_processing">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="Masterarbeit" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="code_test" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Masterarbeit" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="landmarkExtraction" type="PythonConfigurationType" factoryName="Python">
+      <module name="Masterarbeit" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/landmarkExtraction.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="transcript_processing" type="PythonConfigurationType" factoryName="Python">
+      <module name="Masterarbeit" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="transcript_processing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="word2vec_test" type="PythonConfigurationType" factoryName="Python">
+      <module name="Masterarbeit" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="D:\OneDrive - FHDO - PROD\Master BMIT\masterarbeit" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="word2vec_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.code_test" />
+      <item itemvalue="Python.landmarkExtraction" />
+      <item itemvalue="Python.transcript_processing" />
+      <item itemvalue="Python.word2vec_test" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-PY-242.20224.428" />
+        <option value="bundled-python-sdk-80e8e15d2b92-39cff9de6eef-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.20224.428" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5aebd690-4a8b-49f2-9b6d-1dc1a962dab3" name="Changes" comment="" />
+      <created>1722706002525</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1722706002525</updated>
+      <workItem from="1722706003693" duration="3149000" />
+      <workItem from="1722969953648" duration="546000" />
+      <workItem from="1723023481180" duration="9081000" />
+      <workItem from="1723048100846" duration="4550000" />
+      <workItem from="1723193558613" duration="11502000" />
+      <workItem from="1723654254673" duration="4194000" />
+      <workItem from="1723658598285" duration="317000" />
+      <workItem from="1723659328632" duration="3099000" />
+      <workItem from="1723662479518" duration="1207000" />
+      <workItem from="1723713997531" duration="364000" />
+      <workItem from="1723714774221" duration="2384000" />
+      <workItem from="1723746753980" duration="24000" />
+      <workItem from="1723800784118" duration="19026000" />
+      <workItem from="1723881493220" duration="28615000" />
+      <workItem from="1724005847946" duration="847000" />
+      <workItem from="1724095391370" duration="6168000" />
+      <workItem from="1724142287901" duration="14063000" />
+      <workItem from="1724235135773" duration="11629000" />
+      <workItem from="1724320618075" duration="8507000" />
+      <workItem from="1724343020369" duration="812000" />
+      <workItem from="1724351105953" duration="1693000" />
+      <workItem from="1724400483955" duration="16820000" />
+      <workItem from="1724490376289" duration="2624000" />
+      <workItem from="1724493033385" duration="9111000" />
+      <workItem from="1724530947745" duration="1731000" />
+      <workItem from="1724575378955" duration="5935000" />
+      <workItem from="1724662522533" duration="6005000" />
+      <workItem from="1724672014180" duration="1490000" />
+      <workItem from="1724673546630" duration="8126000" />
+      <workItem from="1724746755377" duration="2174000" />
+      <workItem from="1724750014893" duration="11540000" />
+      <workItem from="1724831575421" duration="2734000" />
+      <workItem from="1724938325327" duration="6240000" />
+      <workItem from="1725008806917" duration="16752000" />
+      <workItem from="1725091231733" duration="15307000" />
+      <workItem from="1725184312896" duration="13124000" />
+      <workItem from="1725265257716" duration="13794000" />
+      <workItem from="1725349356062" duration="30947000" />
+      <workItem from="1725438900217" duration="13987000" />
+      <workItem from="1725522768387" duration="18757000" />
+      <workItem from="1725614388374" duration="9345000" />
+      <workItem from="1725710934763" duration="7917000" />
+      <workItem from="1725789597334" duration="17594000" />
+      <workItem from="1725873787303" duration="16306000" />
+      <workItem from="1725957323689" duration="7814000" />
+      <workItem from="1726047992786" duration="2974000" />
+      <workItem from="1726063925969" duration="8275000" />
+      <workItem from="1726128643642" duration="25147000" />
+      <workItem from="1726215810800" duration="11205000" />
+      <workItem from="1726394222348" duration="14972000" />
+      <workItem from="1726477634373" duration="5917000" />
+      <workItem from="1726563595811" duration="7068000" />
+      <workItem from="1726662422448" duration="3998000" />
+      <workItem from="1726734443716" duration="17521000" />
+      <workItem from="1726771243381" duration="1336000" />
+      <workItem from="1726831600624" duration="12107000" />
+      <workItem from="1726907455303" duration="18037000" />
+      <workItem from="1726993135237" duration="20707000" />
+      <workItem from="1727082717937" duration="1581000" />
+      <workItem from="1727090495289" duration="657000" />
+      <workItem from="1727093239519" duration="1961000" />
+      <workItem from="1727168151836" duration="2448000" />
+      <workItem from="1727180715771" duration="13300000" />
+      <workItem from="1727252846654" duration="1341000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/landmarkExtraction.py</url>
+          <line>184</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/holistic_landmarker_test.py</url>
+          <line>79</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Masterarbeit$code_test.coverage" NAME="code_test Coverage Results" MODIFIED="1726139544002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Masterarbeit$holistic_landmarker_test.coverage" NAME="holistic_landmarker_test Coverage Results" MODIFIED="1724150405721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Masterarbeit$transcript_processing.coverage" NAME="transcript_processing Coverage Results" MODIFIED="1727197588834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Masterarbeit$landmarkExtraction.coverage" NAME="landmarkExtraction Coverage Results" MODIFIED="1724161505309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Masterarbeit$app.coverage" NAME="app Coverage Results" MODIFIED="1723198630525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Masterarbeit$word2vec_test.coverage" NAME="word2vec_test Coverage Results" MODIFIED="1724527368626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:\OneDrive - FHDO - PROD\Master BMIT\masterarbeit" />
+  </component>
+</project>
