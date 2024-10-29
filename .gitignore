@@ -8,3 +8,8 @@ models/word_embedding/cc.de.300.bin
 models/word_embedding/cc.de.300.vec
 models/word_embedding/cc.de.300.reduced.vec
 vocab/vid/
+blender/vocab/*
+blender/vocab_old
+vocab/landmarks/dw_dgs/*
+
+*.pkl

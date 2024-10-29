@@ -11,6 +11,54 @@ from dataset import DgsDataset
 from seq2seq import clean_token
 
 
+def log_all_translations(start_idx, srt_folder, openpose_folder, translations_file):
+    if not start_idx:
+        with open(translations_file, 'wb') as f:
+            pickle.dump({'transcript': [], 'index': [], 'de': [], 'dgs': [], 'mouth': []}, f)
+
+    for i, srt_file_name in enumerate(os.listdir(srt_folder)[start_idx:]):
+        srt_file = srt_folder + srt_file_name
+        transcript_id = srt_file_name.split('_de.srt')[0]
+        print(i+start_idx, transcript_id)
+        openpose_file = openpose_folder + transcript_id + '_openpose.json'
+
+        if not os.path.isfile(openpose_file):
+            print("Nope")
+            continue
+
+        tm = TranscriptManager(openpose_file, srt_file, vis_mode=False)
+        de, dgs, mouth = tm.get_translations()
+
+        if len(de) == len(dgs):
+            with open(translations_file, 'rb') as f:
+                translations = pickle.load(f)
+
+            num_translations = len(de)
+            translations['transcript'] = translations['transcript'] + [tm.transcript_id] * num_translations
+            translations['index'] = translations['index'] + list(range(num_translations))
+            translations['de'] = translations['de'] + de
+            translations['dgs'].extend(dgs)
+            translations['mouth'].extend(mouth)
+
+            with open(translations_file, 'wb') as f:
+                pickle.dump(translations, f)
+
+
+def log_all_gestures(start_idx, srt_folder, openpose_folder):
+    for i, srt_file_name in enumerate(os.listdir(srt_folder)[start_idx:]):
+        srt_file = srt_folder + srt_file_name
+        transcript_id = srt_file_name.split('_de.srt')[0]
+        print(i+start_idx, transcript_id)
+        openpose_file = openpose_folder + transcript_id + '_openpose.json'
+
+        if not os.path.isfile(openpose_file):
+            print("Nope")
+            continue
+
+        tm = TranscriptManager(openpose_file, srt_file, vis_mode=False)
+        tm.log_pose_data()
+
+
 def read_json(path):
     with open(path, 'r') as f:
         return json.load(f)
@@ -18,12 +66,31 @@ def read_json(path):
 
 def draw_keypoints(img, part, keypoints):
     format_dict = {'pose_keypoints_2d': [(0, 255, 0), 5],
+                   'pose': [(0, 255, 0), 5],
                    'face_keypoints_2d': [(0, 255, 255), 1],
+                   'face': [(0, 255, 255), 1],
                    'hand_left_keypoints_2d': [(0, 0, 255), 3],
-                   'hand_right_keypoints_2d': [(255, 0, 0), 3]}
+                   'hand_left': [(0, 0, 255), 3],
+                   'hand_right_keypoints_2d': [(255, 0, 0), 3],
+                   'hand_right': [(255, 0, 0), 3]}
+
     color = format_dict[part][0]
     radius = format_dict[part][1]
     keypoints = np.array(keypoints).reshape(int(len(keypoints)/3), 3)
+
+    if 'pose' in part:
+        connections = [(1, 8),
+                       (1, 2),
+                       (1, 5),
+                       (2, 3),
+                       (5, 6),
+                       (3, 4),
+                       (6, 7)]
+        for connection in connections:
+            start = keypoints[connection[0], :]
+            end = keypoints[connection[1], :]
+            cv.line(img, (int(start[0]), int(start[1])), (int(end[0]), int(end[1])), color, min(radius, 1))
+
     for point in keypoints:
         cv.circle(img, (int(point[0]), int(point[1])), radius, color, -1)
 
@@ -48,7 +115,7 @@ def is_processed(transcript_id):
 
 
 def check_landmark_completion(check_token=None):
-    ds = DgsDataset('vocab/translations/dgs_korpus.pkl', simplify=True)
+    ds = DgsDataset('vocab/translations/from_transcripts.pkl', 'models/word_embedding/cc.de.100.reduced.bin', simplify=True)
     folder = 'vocab/landmarks/dw-dgs/'
     landmarks_recorded = {'completed': [], 'pending': []}
     for token in ds.vocabulary:
@@ -186,10 +253,16 @@ class TranscriptManager:
             return
 
         folder = 'vocab/landmarks/dw-dgs/'
-        ds = DgsDataset('vocab/translations/dgs_korpus.pkl', simplify=True)
+        ds = DgsDataset('vocab/translations/from_transcripts.pkl',
+                        'models/word_embedding/cc.de.100.reduced.bin',
+                        simplify=True)
         entry_counter = 0
+        updated_tokens = []
 
         for _, entry in self.subtitle_dict.items():
+            if len(self.pose_data) < 3: continue
+            elif len(self.pose_data[2]['frames']['0']['people']) < 2: continue
+
             token = entry[3]
 
             if get_track(token) == 1 and token in ds.vocabulary:
@@ -197,8 +270,16 @@ class TranscriptManager:
                 key = self.pose_data[0]['id'] + " " + str(entry[0])
 
                 if os.path.isfile(file_path):
-                    with open(file_path, 'rb') as f:
-                        landmark_dict = pickle.load(f)
+                    try:
+                        with open(file_path, 'rb') as f:
+                            landmark_dict = pickle.load(f)
+                    except PermissionError as e:
+                        print(e)
+                        continue
+
+                    if len(landmark_dict) >= 100:
+                        continue
+
                 else:
                     landmark_dict = {}
 
@@ -209,91 +290,71 @@ class TranscriptManager:
                         person = 1
                     else:
                         raise ValueError("Person could not be identified")
+
                     landmarks = {'person': entry[2],
                                  'front': {'pose': [], 'face': [], 'hand_left': [], 'hand_right': []},
                                  'side': {'pose': [], 'face': [], 'hand_left': [], 'hand_right': []}}
 
                     for frame in range(entry[0], entry[1]):
-                        landmarks['front']['pose'].append(
-                            self.pose_data[person]['frames'][str(frame)]['people'][0]['pose_keypoints_2d'])
-                        landmarks['front']['face'].append(
-                            self.pose_data[person]['frames'][str(frame)]['people'][0]['face_keypoints_2d'])
-                        landmarks['front']['hand_left'].append(
-                            self.pose_data[person]['frames'][str(frame)]['people'][0]['hand_left_keypoints_2d'])
-                        landmarks['front']['hand_right'].append(
-                            self.pose_data[person]['frames'][str(frame)]['people'][0]['hand_right_keypoints_2d'])
-                        landmarks['side']['pose'].append(
-                            self.pose_data[2]['frames'][str(frame)]['people'][person]['pose_keypoints_2d'])
-                        landmarks['side']['face'].append(
-                            self.pose_data[2]['frames'][str(frame)]['people'][person]['face_keypoints_2d'])
-                        landmarks['side']['hand_left'].append(
-                            self.pose_data[2]['frames'][str(frame)]['people'][person]['hand_left_keypoints_2d'])
-                        landmarks['side']['hand_right'].append(
-                            self.pose_data[2]['frames'][str(frame)]['people'][person]['hand_right_keypoints_2d'])
+                        if frame >= len(self.pose_data[person]['frames']) or frame >= len(self.pose_data[2]['frames']):
+                            break
+                        try:
+                            landmarks['front']['pose'].append(
+                                self.pose_data[person]['frames'][str(frame)]['people'][0]['pose_keypoints_2d'])
+                            landmarks['front']['face'].append(
+                                self.pose_data[person]['frames'][str(frame)]['people'][0]['face_keypoints_2d'])
+                            landmarks['front']['hand_left'].append(
+                                self.pose_data[person]['frames'][str(frame)]['people'][0]['hand_left_keypoints_2d'])
+                            landmarks['front']['hand_right'].append(
+                                self.pose_data[person]['frames'][str(frame)]['people'][0]['hand_right_keypoints_2d'])
+                            landmarks['side']['pose'].append(
+                                self.pose_data[2]['frames'][str(frame)]['people'][person]['pose_keypoints_2d'])
+                            landmarks['side']['face'].append(
+                                self.pose_data[2]['frames'][str(frame)]['people'][person]['face_keypoints_2d'])
+                            landmarks['side']['hand_left'].append(
+                                self.pose_data[2]['frames'][str(frame)]['people'][person]['hand_left_keypoints_2d'])
+                            landmarks['side']['hand_right'].append(
+                                self.pose_data[2]['frames'][str(frame)]['people'][person]['hand_right_keypoints_2d'])
+                        except KeyError as e:
+                            print(len(self.pose_data[2]['frames']), e)
+                            continue
 
                     landmark_dict[key] = landmarks
                     entry_counter += 1
-
-                with open(file_path, 'wb') as f:
-                    pickle.dump(landmark_dict, f)
+                    if token not in updated_tokens:
+                        updated_tokens.append(token)
+                try:
+                    with open(file_path, 'wb') as f:
+                        pickle.dump(landmark_dict, f)
+                except PermissionError as e:
+                    print(e)
+                    continue
 
         with open('vocab/landmarks/dw-dgs/_completed_transcripts.txt', 'a') as f:
             f.write(self.transcript_id + "\n")
 
-        print(f"{entry_counter} new gestures added.")
+        print(f"{entry_counter} new gestures for {len(updated_tokens)} tokens added.")
+
+
+#%%
+# if __name__ == '__main__':
+#     srt = 'transcripts/srt/'
+#     openpose = 'transcripts/pose/'
+#     translations = 'vocab/translations/from_transcripts.pkl'
+#     start = 0
+#
+#     # log_all_translations(start, srt, openpose, translations)
+#     # log_all_gestures(start, srt, openpose)
+#     landmarks = check_landmark_completion()
 
 
 #%%
 if __name__ == '__main__':
     srt_folder = 'transcripts/srt/'
     openpose_folder = 'transcripts/pose/'
-    translations_file = 'vocab/translations/from_transcripts.pkl'
-
-    start_idx = 0
-
-    if not start_idx:
-        with open(translations_file, 'wb') as f:
-            pickle.dump({'transcript': [], 'index': [], 'de': [], 'dgs': [], 'mouth': []}, f)
-
-    for i, srt_file_name in enumerate(os.listdir(srt_folder)[start_idx:]):
-        # try:
-        if True:
-            srt_file = srt_folder + srt_file_name
-            transcript_id = srt_file_name.split('_de.srt')[0]
-            print(i, transcript_id)
-            openpose_file = openpose_folder + transcript_id + '_openpose.json'
-
-            if not os.path.isfile(openpose_file):
-                print("Nope")
-                continue
-
-            tm = TranscriptManager(openpose_file, srt_file, vis_mode=False)
-            de, dgs, mouth = tm.get_translations()
-
-            if len(de) == len(dgs):
-                with open(translations_file, 'rb') as f:
-                    translations = pickle.load(f)
-
-                num_translations = len(de)
-                translations['transcript'] = translations['transcript'] + [tm.transcript_id] * num_translations
-                translations['index'] = translations['index'] + list(range(num_translations))
-                translations['de'] = translations['de'] + de
-                translations['dgs'].extend(dgs)
-                translations['mouth'].extend(mouth)
-
-                with open(translations_file, 'wb') as f:
-                    pickle.dump(translations, f)
-            else:
-                print(f"Incompatible sizes.\tde: {len(de)}\tdgs: {len(dgs)}")
-
-        # except Exception as e:
-            # print(i, e)
-
-
-#%%
-# tm = TranscriptManager(openpose_folder + os.listdir(openpose_folder)[0], srt_folder + os.listdir(srt_folder)[0])
-# de, dgs = tm.get_translations()
-# tm.visualize(5)
-# tm.log_pose_data()
-# status = tm.check_landmark_completion()
+    tm = TranscriptManager(openpose_folder + os.listdir(openpose_folder)[0], srt_folder + os.listdir(srt_folder)[0], vis_mode=True)
+    # de, dgs = tm.get_translations()
+    tm.visualize(5)
+    # tm.log_pose_data()
+    # status = tm.check_landmark_completion()
 

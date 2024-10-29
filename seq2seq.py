@@ -50,10 +50,10 @@ def clean_token(token):
 
 
 class Seq2Seq(nn.Module):
-    def __init__(self, vocabulary, max_iter=40, hidden_size=128):
+    def __init__(self, vocabulary, embedder, max_iter=40, hidden_size=128):
         super().__init__()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.embedder = compress_fasttext.models.CompressedFastTextKeyedVectors.load('models/word_embedding/cc.de.300.reduced.bin')
+        self.embedder = compress_fasttext.models.CompressedFastTextKeyedVectors.load(embedder)
         self.max_iter = max_iter
         self.idx2token, self.token2idx = load_vocabulary(vocabulary)
         self.idx2vec = self.generate_vocab_vectors()
@@ -120,22 +120,15 @@ class Seq2Seq(nn.Module):
 
 
     def encode_dgs(self, sentence):
-        sentence = sentence.split()
+        # sentence = sentence.split()
 
         while "||" in sentence:
             sentence.remove("||")
         if not sentence:
             sentence = ["||"]
 
-        tokens = []
-
-        # for token in sentence:
-        #     token = clean_token(token)
-        #     tokens.append(token)
-
         encoded_tokens = torch.tensor([0], device=self.device)      # <SOS> token
-
-        target = torch.zeros((self.max_iter, len(self.idx2token)), dtype=torch.long, device=self.device)
+        # target = torch.zeros((self.max_iter, len(self.idx2token)), dtype=torch.long, device=self.device)
 
         for i, token in enumerate(sentence):
             if token in self.token2idx.keys():
@@ -145,19 +138,17 @@ class Seq2Seq(nn.Module):
                 similarities = F.cosine_similarity(embeddings, self.idx2vec, dim=-1)
                 idx = similarities.argmax().unsqueeze(0)
             encoded_tokens = torch.cat((encoded_tokens, idx), dim=-1)
-            target[i, idx] = 1
+            # target[i, idx] = 1
 
         encoded_tokens = torch.cat((encoded_tokens, torch.tensor([1], device=self.device)))     # <EOS> token
         encoded_tokens = encoded_tokens[1:]
 
-        return encoded_tokens.to(self.device), target
+        return encoded_tokens.to(self.device) #, target
 
 
     def generate_vocab_vectors(self):
         emb = self.embedder
         vec = []
-
-        to_remove = ["$GEST-", "$NUM-", "$EXTRA-LING", "$GEST-NM-"]
 
         for idx, token in self.idx2token.items():
             idx = int(idx)
@@ -166,7 +157,6 @@ class Seq2Seq(nn.Module):
                 continue
 
             token = clean_token(token)
-
             vec.append(emb[token])
 
         return torch.tensor(np.array(vec), device=self.device)
