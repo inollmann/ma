@@ -113,7 +113,10 @@ class Seq2Seq(nn.Module):
 
     def decode_sequence(self, sequence):
         sentence = []
-        for v in sequence.squeeze():
+        sequence = sequence.squeeze()
+        if sequence.dim() == 0:
+            return ""
+        for v in sequence:
             sentence.append(self.idx2token[v.item()])
 
         return sentence

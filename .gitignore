@@ -13,3 +13,4 @@ blender/vocab_old
 vocab/landmarks/dw_dgs/*
 
 *.pkl
+.vscode/launch.json

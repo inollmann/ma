@@ -126,7 +126,10 @@ class Armature:
         #    gest[6]['coords'].append([-math.sin(math.pi/6*i) * 0.3 - 0.5, -math.sin(math.pi/3*i) * 0.25 - 0.5, math.cos(math.pi/6*i)])
             
         num_frames = len(gest[5]['coords'])
-        keyframe_interval = 35 / num_frames
+        #keyframe_interval = 35 / num_frames
+        keyframe_interval = 2
+        bpy.data.scenes["Scene"].frame_start = 0
+        bpy.data.scenes["Scene"].frame_end = (num_frames + 1) * keyframe_interval
             
         for wl, wr, mkl, mkr, ikl, ikr, pkl, pkr in zip(
                     gest[5]['coords'], gest[6]['coords'], 
@@ -179,7 +182,8 @@ class Armature:
         keyframe = 0
         animation_length = 35
         num_frames = len(gest[0]['coords'])
-        keyframe_interval = 35 / num_frames
+        #keyframe_interval = 35 / num_frames
+        keyframe_interval = 2
         
         for frame in range(num_frames):
             keyframe += keyframe_interval
@@ -209,7 +213,7 @@ class Armature:
                 pbone.rotation_axis_angle = (angle, *rotax)
                 pbone.keyframe_insert(data_path="rotation_axis_angle", frame=int(keyframe))
             
-            # Thumb L
+            # Thumbs
             for idx, name, r in zip([15, 16], ["FK-Finger_Thumb1.L", "FK-Finger_Thumb1.R"], [(1, 1, 0.3), (-1, 1, 0.3)]):
                 bone = gest[idx]
                 dbone = bpy.data.armatures["Data_RIG-Snow.003"].bones[name]
@@ -227,6 +231,8 @@ class Armature:
                 y_proj = y - rotax * y.dot(rotax)
                 v_proj.normalize()
                 y_proj.normalize()
+                if v_proj.length == 0:
+                    v_proj = y_proj
                 angle = y_proj.angle(v_proj)
                 angle = max(min(angle, math.radians(50)), math.radians(-40))
                 if idx == 16:
@@ -236,9 +242,18 @@ class Armature:
                 pbone.keyframe_insert(data_path="rotation_axis_angle", frame=int(keyframe))
             
     
-    def move(self, gest):
+    def move(self, gest, action_name):
+        action = bpy.data.actions.get(action_name)
+        if action:
+            bpy.data.actions.remove(action)
+        action = bpy.data.actions.new(name=action_name)
+        self.armature.animation_data_create()
+        self.armature.animation_data.action = action
+        
         self.control_wrists(gest)
         self.control_fingers(gest)
+        
+        action.use_fake_user = True
 
             
     def reset_pose(self):
@@ -266,22 +281,30 @@ if __name__ == '__main__':
     arma = Armature()
     if reset:
         arma.reset_pose()
+        arma.clear_all_keyframes()
     else:
         arma.reset_pose()
         arma.clear_all_keyframes()
         print('Loading...')
         dirname = os.path.dirname(__file__)
-        dirname = dirname[:-17]
+        dirname = dirname[:-17] + "\\vocab"
         print(dirname)
-        with open(os.path.join(dirname, 'vocab\\allein.json'), 'r') as f:
-            j = json.load(f)
-        gest = j['coords']
-        rid = j['id']
-        print(rid)
-        copy2clip(rid)
-        #print(gest[7])
-        arma.move(gest)
-
+        
+        #filename = 'abbiegen.json'
+        
+        for filename in os.listdir(dirname):
+            if not filename.endswith(".json"):
+                continue
+            with open(os.path.join(dirname, filename), 'r') as f:
+                j = json.load(f)
+            gest = j['coords']
+            rid = j['id']
+            print(filename, rid)
+            copy2clip(rid)
+            #print(gest[7])
+            action_name = os.path.splitext(filename)[0]
+            arma.move(gest, action_name)
+        print("Finished!")
             
     
 #hand_left_e2b = {
