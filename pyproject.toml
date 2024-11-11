@@ -16,8 +16,8 @@ pandas = "^2.2.2"
 matplotlib = "^3.9.2"
 requests = "^2.32.3"
 seaborn = "^0.13.2"
-tensorflow = {version = "^2.13.0" }
-tensorflow-intel = { version = "^2.13.0", platform = "win32" }
+#tensorflow = {version = "^2.13.0" }
+#tensorflow-intel = { version = "^2.13.0", platform = "win32" }
 tensorflow-cpu = [
     { version = "^2.13.0", platform = "linux", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },
     { version = "^2.13.0", platform = "darwin", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },]

@@ -1,4 +1,6 @@
 import json
+import os
+import sys
 import torch
 import compress_fasttext
 import torch.nn.functional as F
@@ -8,39 +10,12 @@ from dataset import DgsDataset
 from seq2seq import Seq2Seq, clean_token
 
 
-def load_model():
-    with open('./vocab/model_tokens.json', 'r') as f:
-        vocabulary = json.load(f)
-    embedder_file = './models/word_embedding/cc.de.100.reduced.bin'
-    s2s = Seq2Seq(vocabulary, embedder_file, max_iter=20, hidden_size=128)
-    s2s.load_state_dict(torch.load("state_dict_v2.pt"))
-    s2s.eval()
-    return s2s
-
-
-def load_embedder():
-    return compress_fasttext.models.CompressedFastTextKeyedVectors.load('./models/word_embedding/cc.de.100.reduced.bin')
-
-
-def load_blender_vocab():
-    with open('./blender/embedded_vocab.json', 'r') as f:
-        d = json.load(f)
-    d['embeddings'] = torch.tensor(d['embeddings'])
-    return d
-
-
-def write_to_file(tokens):
-    with open('./blender/NNoutput.txt', 'w') as f:
-        for token in tokens:
-            f.write(token + '\n')
-
-
 class Speech2DGS:
     def __init__(self):
-        self.translator = load_model()
-        self.embedder = load_embedder()
-        self.blender_vocabulary = load_blender_vocab()
-
+        self.dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+        self.translator = self.load_model()
+        self.embedder = self.load_embedder()
+        self.blender_vocabulary = self.load_blender_vocab()
 
     def translate(self, sentence):
         with torch.no_grad():
@@ -63,6 +38,30 @@ class Speech2DGS:
             else:
                 tokens[i] = token
         return tokens
+    
+    def load_model(self):
+        with open(os.path.join(self.dir, 'vocab/model_tokens.json'), 'r') as f:
+            vocabulary = json.load(f)
+        embedder_file = os.path.join(self.dir, 'models/word_embedding/cc.de.100.reduced.bin')
+        s2s = Seq2Seq(vocabulary, embedder_file, max_iter=20, hidden_size=128)
+        s2s.load_state_dict(torch.load(os.path.join(self.dir, "state_dict_v2.pt")))
+        s2s.eval()
+        return s2s
+
+    def load_embedder(self):
+        return compress_fasttext.models.CompressedFastTextKeyedVectors.load(os.path.join(self.dir, 'models/word_embedding/cc.de.100.reduced.bin'))
+
+    def load_blender_vocab(self):
+        with open(os.path.join(self.dir, 'blender/embedded_vocab.json'), 'r') as f:
+            d = json.load(f)
+        d['embeddings'] = torch.tensor(d['embeddings'])
+        return d
+
+    def write_to_file(self, sentence, tokens):
+        with open(os.path.join(self.dir, 'blender/NNoutput.txt'), 'w', encoding="utf-8") as f:
+            f.write(sentence + '\n')
+            for token in tokens:
+                f.write(token + '\n')
 
 
 def live_speech2text(sdgs):
@@ -82,8 +81,7 @@ def live_speech2text(sdgs):
             if sentence:
                 dgs = sdgs.translate(sentence)
                 print("Translation: ", dgs)
-                if dgs:
-                    write_to_file(dgs)
+                sdgs.write_to_file(sentence, dgs)
         except sr.UnknownValueError:
             print("Could not understand audio")
         except sr.RequestError as e:

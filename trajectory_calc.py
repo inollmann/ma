@@ -147,6 +147,12 @@ class BlenderCoords:
             coords[:, 1] = (back - n['origin']['y']) / n['delta']['y']
             coords[:, 2] = (- right_up[:, 1] + n['origin']['z']) / n['delta']['z']
             rel_coords.append({'bone': name, 'parent': parent, 'coords': coords.tolist()})
+
+        face = np.array(self.rec['front']['face'])
+        face = face.reshape(face.shape[0], -1, 3)
+        face = face[:, :, :2]
+        face = np.transpose(face, (1, 0, 2))
+        rel_coords.append({'bone': 'face', 'parent': None, 'coords': face.tolist()})
         return {'id': self.id, 'coords': rel_coords}
 
     def get_norms(self):
@@ -398,7 +404,7 @@ class TrajectoryCalculator:
         h_lines = [[2, 3], [3, 4], [5, 6],  [6, 7], [7, 8], [9, 10], [10, 11], [11, 12], [13, 14], [14, 15], [15, 16],
                             [17, 18], [18, 19], [19, 20], [0, 1], [1, 2], [2, 5], [5, 9], [9, 13], [13, 17], [17, 0]]
 
-        for p, hl, hr in zip(front['pose'], front['hand_left'], front['hand_right']):
+        for p, hl, hr, f in zip(front['pose'], front['hand_left'], front['hand_right'], front['face']):
             wait_key = cv.waitKey(max(wait_between_frames, 0))
             if wait_key == 27:  # ESC
                 break
@@ -428,6 +434,12 @@ class TrajectoryCalculator:
                 y_l = hl[i * 3 + 1]
                 x_r = hr[i * 3]
                 y_r = hr[i * 3 + 1]
+
+                if x_l != 0:
+                    x_min, x_max, y_min, y_max = min(x_min, x_l), max(x_max, x_l), min(y_min, y_l), max(y_max, y_l)
+                if x_r != 0:
+                    x_min, x_max, y_min, y_max = min(x_min, x_r), max(x_max, x_r), min(y_min, y_r), max(y_max, y_r)
+
                 cv.circle(img, (int(x_l), int(y_l)), 2, (0, 255, 0), thickness=2)
                 cv.circle(img, (int(x_r), int(y_r)), 2, (255, 0, 0), thickness=2)
 
@@ -438,6 +450,14 @@ class TrajectoryCalculator:
                 end_r = tuple([int(hr[pair[1] * 3]), int(hr[pair[1] * 3 + 1])])
                 cv.line(img, start_l, end_l, (0, 255, 0), 2)
                 cv.line(img, start_r, end_r, (255, 0, 0), 2)
+            
+            for i in range(int(len(f) / 3)):
+                x = f[i * 3]
+                y = f[i * 3 + 1]
+                if x != 0:
+                    x_min, x_max, y_min, y_max = min(x_min, x), max(x_max, x), min(y_min, y), max(y_max, y)
+
+                cv.circle(img, (int(x), int(y)), 2, (255, 0, 255), thickness=2)
 
             x_min, x_max, y_min, y_max = (max(int(x_min) - 20, 0),
                                           min(int(x_max) + 20, img_width - 1),
