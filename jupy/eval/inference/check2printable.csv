@@ -1,0 +1,500 @@
+#1;Guten Morgen!
+d64_el1_dl1_ff64-ep1000;['als', 'ich', 'zeigen']
+d64_el1_dl1_ff64-ep750;['zeigen', 'wie']
+d64_el1_dl1_ff64-ep500;['zeigen', 'schütteln hand']
+d64_el1_dl1_ff64-ep250;['prod', 'verschwommen']
+#2;Wie geht es dir?
+d64_el1_dl1_ff64-ep1000;['wie frage vergleich']
+d64_el1_dl1_ff64-ep750;['du']
+d64_el1_dl1_ff64-ep500;['wie frage vergleich']
+d64_el1_dl1_ff64-ep250;['wie frage vergleich', 'du']
+#3;Hast du gut geschlafen?
+d64_el1_dl1_ff64-ep1000;['du', 'schlafen', 'du', 'schlafen', 'du']
+d64_el1_dl1_ff64-ep750;['du', 'schlafen', 'du', 'schlafen', 'du']
+d64_el1_dl1_ff64-ep500;['du', 'schlafen', 'du']
+d64_el1_dl1_ff64-ep250;['du', 'schlafen', 'du']
+#4;Kannst du mir bitte helfen?
+d64_el1_dl1_ff64-ep1000;['kann', 'bitte', 'helfen', 'thema']
+d64_el1_dl1_ff64-ep750;['kann', 'helfen', 'thema']
+d64_el1_dl1_ff64-ep500;['kann', 'helfen']
+d64_el1_dl1_ff64-ep250;['kann', 'helfen']
+#5;Was gibt es heute zu essen?
+d64_el1_dl1_ff64-ep1000;['heute', 'essen', 'heute', 'essen']
+d64_el1_dl1_ff64-ep750;['heute', 'essen', 'heute', 'essen']
+d64_el1_dl1_ff64-ep500;['heute', 'essen', 'heute', 'essen', 'heute']
+d64_el1_dl1_ff64-ep250;['heute', 'essen', 'heute', 'essen']
+#6;Ich habe meinen SchlÃ¼ssel verloren.
+d64_el1_dl1_ff64-ep1000;['ich', '<num>', 'verlieren']
+d64_el1_dl1_ff64-ep750;['ich', '<num>', 'verlieren']
+d64_el1_dl1_ff64-ep500;['ich', 'gest', 'ich', 'verlieren']
+d64_el1_dl1_ff64-ep250;['ich', 'gest', 'ich', 'gest']
+#7;Wie spÃ¤t ist es?
+d64_el1_dl1_ff64-ep1000;['gest']
+d64_el1_dl1_ff64-ep750;['gest']
+d64_el1_dl1_ff64-ep500;['gest']
+d64_el1_dl1_ff64-ep250;['gest']
+#8;Hast du die Nachrichten schon gelesen?
+d64_el1_dl1_ff64-ep1000;['prod', 'lesen']
+d64_el1_dl1_ff64-ep750;['prod', 'lesen']
+d64_el1_dl1_ff64-ep500;['prod', 'lesen']
+d64_el1_dl1_ff64-ep250;['prod', 'lesen', 'index']
+#9;KÃ¶nnten Sie das bitte wiederholen?
+d64_el1_dl1_ff64-ep1000;['index', 'index', 'index', 'überlegen', 'und', 'index', 'überlegen']
+d64_el1_dl1_ff64-ep750;['index', 'index', 'index', 'überlegen', 'und', 'index', 'überlegen']
+d64_el1_dl1_ff64-ep500;['index', 'überlegen', '<name>', 'tod', 'überlegen']
+d64_el1_dl1_ff64-ep250;['index', 'index', 'index', 'überlegen', 'index', 'überlegen', 'index', 'überlegen', 'index', 'überlegen', 'index', 'überlegen', 'index', 'überlegen', 'index', 'überlegen', 'index', 'überlegen', 'index', 'überlegen']
+#10;Ich verstehe das nicht ganz.
+d64_el1_dl1_ff64-ep1000;['verstehen', 'nicht']
+d64_el1_dl1_ff64-ep750;['verstehen', 'nicht']
+d64_el1_dl1_ff64-ep500;['verstehen', 'nicht']
+d64_el1_dl1_ff64-ep250;['verstehen', 'nicht']
+#11;Kannst du mir die TÃ¼r aufmachen?
+d64_el1_dl1_ff64-ep1000;['kann', 'probe', 'treffen', 'gebärden']
+d64_el1_dl1_ff64-ep750;['kann', 'probe', 'treffen', 'frage']
+d64_el1_dl1_ff64-ep500;['kann', 'off']
+d64_el1_dl1_ff64-ep250;['kann', 'off']
+#12;Wo ist die nÃ¤chste Haltestelle?
+d64_el1_dl1_ff64-ep1000;['index', 'wie', 'index', 'wie', 'prod', 'prod', 'prod', 'prod']
+d64_el1_dl1_ff64-ep750;['index', 'wie', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod']
+d64_el1_dl1_ff64-ep500;['index', 'wie', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod']
+d64_el1_dl1_ff64-ep250;['index', 'mikrofon', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod', 'prod']
+#13;Darf ich mich hier hinsetzen?
+d64_el1_dl1_ff64-ep1000;['ich', 'auto fahren', 'sitzen']
+d64_el1_dl1_ff64-ep750;['ich', 'gehen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen', 'sitzen']
+d64_el1_dl1_ff64-ep500;['ich', 'hier', 'ich', 'hier']
+d64_el1_dl1_ff64-ep250;['sitzen', 'handbremse']
+#14;Ich hÃ¤tte gerne einen Kaffee.
+d64_el1_dl1_ff64-ep1000;['<num>', 'multiplizieren', 'nudeln', 'ich', 'gern', 'kaffee']
+d64_el1_dl1_ff64-ep750;['<num>', 'multiplizieren', 'nudeln', 'ich', 'kaffee']
+d64_el1_dl1_ff64-ep500;['ich', 'mögen', 'mit', 'mitbringen', 'kaffee']
+d64_el1_dl1_ff64-ep250;['ich', 'kaffee']
+#15;Hast du Lust, etwas zu unternehmen?
+d64_el1_dl1_ff64-ep1000;['du', 'keine lust']
+d64_el1_dl1_ff64-ep750;['du', 'keine lust']
+d64_el1_dl1_ff64-ep500;['fort', 'keine lust']
+d64_el1_dl1_ff64-ep250;['keine lust']
+#16;KÃ¶nnen wir spÃ¤ter darÃ¼ber sprechen?
+d64_el1_dl1_ff64-ep1000;['ich', 'überlegen', 'überlegen', 'überlegen', 'list', 'überlegen', 'list', 'überlegen']
+d64_el1_dl1_ff64-ep750;['fuchs', 'ich', 'überlegen', 'gest', 'überlegen', 'gest', 'überlegen', 'gest', 'überlegen']
+d64_el1_dl1_ff64-ep500;['überlegen', 'alpha', 'bereich', 'alpha', 'bereich', 'alpha', 'bereich', 'alpha', 'bereich', 'alpha', 'bereich', 'alpha', 'bereich', 'alpha', 'bereich', 'alpha', 'bereich', 'alpha', 'bereich', 'alpha']
+d64_el1_dl1_ff64-ep250;['tolerant', 'wimmeln']
+#17;Wann fÃ¤ngt der Film an?
+d64_el1_dl1_ff64-ep1000;['wann', 'kamera', 'index', 'film']
+d64_el1_dl1_ff64-ep750;['wann', 'film']
+d64_el1_dl1_ff64-ep500;['wann', 'film']
+d64_el1_dl1_ff64-ep250;['wann', 'film', 'anmachen bildschirm', 'über', 'film', 'anmachen bildschirm', 'off']
+#18;Ich muss noch einkaufen gehen.
+d64_el1_dl1_ff64-ep1000;['ich', 'muss', 'einkaufen', 'bleiben']
+d64_el1_dl1_ff64-ep750;['ich', 'muss', 'einkaufen']
+d64_el1_dl1_ff64-ep500;['ich', 'muss', 'einkaufen']
+d64_el1_dl1_ff64-ep250;['ich', 'einkaufen', 'ich', 'einkaufen', 'ich']
+#19;Das Wetter ist heute schÃ¶n.
+d64_el1_dl1_ff64-ep1000;['beispiel', 'durch', 'auch', 'modern']
+d64_el1_dl1_ff64-ep750;['beispiel', 'durch', 'beispiel', 'durch', 'beispiel', 'auch', 'tanzen']
+d64_el1_dl1_ff64-ep500;['beispiel', 'durch', 'beispiel', 'durch', 'beispiel', 'auch', 'tanzen']
+d64_el1_dl1_ff64-ep250;['wetter', 'wie', 'beispiel', 'auch', 'wie', 'wie', 'wie', 'wie', 'wie', 'wie', 'wie', 'beispiel', 'auch', 'wie', 'beispiel', 'zusammenhang', 'offmass vertikal']
+#20;Es regnet schon den ganzen Tag.
+d64_el1_dl1_ff64-ep1000;['aber', 'für', 'regen', 'tag']
+d64_el1_dl1_ff64-ep750;['aber', 'index', 'sehr']
+d64_el1_dl1_ff64-ep500;['immer', 'regen', 'tag']
+d64_el1_dl1_ff64-ep250;['meistens', 'regen']
+#21;Ich bin gleich wieder da.
+d64_el1_dl1_ff64-ep1000;['ich', 'gleich']
+d64_el1_dl1_ff64-ep750;['ich', 'gleich']
+d64_el1_dl1_ff64-ep500;['ich', 'gleich']
+d64_el1_dl1_ff64-ep250;['ich', 'gleich']
+#22;Das hat mir wirklich gefallen.
+d64_el1_dl1_ff64-ep1000;['ich', 'gefallen']
+d64_el1_dl1_ff64-ep750;['ich', 'gefallen', 'ich']
+d64_el1_dl1_ff64-ep500;['ich', 'gefallen', 'ich']
+d64_el1_dl1_ff64-ep250;['ich', 'gefallen']
+#23;Ich rufe dich spÃ¤ter an.
+d64_el1_dl1_ff64-ep1000;['ich', 'kennen', 'gefühl', 'lesen buch', 'blättern', 'lesen buch']
+d64_el1_dl1_ff64-ep750;['ich', 'kennen', 'gefühl', 'lesen buch', 'gest', 'lesen buch']
+d64_el1_dl1_ff64-ep500;['ich', 'sehen auf', 'lesen buch']
+d64_el1_dl1_ff64-ep250;['ich', 'sehen auf', 'lesen buch']
+#24;KÃ¶nnen wir die Rechnung bitte haben?
+d64_el1_dl1_ff64-ep1000;['index', 'ich', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'überlegen']
+d64_el1_dl1_ff64-ep750;['index', 'ich', 'rechnen', 'übernehmen', 'rechnen', 'überlegen']
+d64_el1_dl1_ff64-ep500;['index', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen', 'rechnen']
+d64_el1_dl1_ff64-ep250;['index', 'hören', 'erfolg', 'ich', 'überlegen']
+#25;Hast du das schon ausprobiert?
+d64_el1_dl1_ff64-ep1000;['probe', 'du', 'gewesen', 'probe', 'du']
+d64_el1_dl1_ff64-ep750;['probe', 'du', 'gewesen', 'probe', 'du']
+d64_el1_dl1_ff64-ep500;['probe', 'du', 'gewesen', 'probe', 'du']
+d64_el1_dl1_ff64-ep250;['probe', 'du', 'kopfhörer', 'du']
+#26;Ich brauche eine Pause.
+d64_el1_dl1_ff64-ep1000;['ich', 'brauchen', 'pause']
+d64_el1_dl1_ff64-ep750;['ich', 'brauchen', 'pause']
+d64_el1_dl1_ff64-ep500;['ich', 'brauchen', 'pause']
+d64_el1_dl1_ff64-ep250;['ich', 'pause', 'brauchen', 'pause']
+#27;Wie war dein Tag?
+d64_el1_dl1_ff64-ep1000;['was', 'tag']
+d64_el1_dl1_ff64-ep750;['du', 'tag']
+d64_el1_dl1_ff64-ep500;['dein', 'tag']
+d64_el1_dl1_ff64-ep250;['was machen', 'off']
+#28;Ich habe heute viel zu tun.
+d64_el1_dl1_ff64-ep1000;['heute', 'ich', 'heute', 'ich']
+d64_el1_dl1_ff64-ep750;['ich', 'heute', 'ich', 'heute', 'ich']
+d64_el1_dl1_ff64-ep500;['heute', 'ich', 'heute', 'ich', 'heute', 'ich']
+d64_el1_dl1_ff64-ep250;['heute', 'ich', 'heute', 'ich']
+#29;KÃ¶nnen wir uns morgen treffen?
+d64_el1_dl1_ff64-ep1000;['fuchs', 'ich', 'verlobung', 'treffen', 'gebärden', 'off']
+d64_el1_dl1_ff64-ep750;['index', 'überlegen', 'treffen', 'morgen']
+d64_el1_dl1_ff64-ep500;['index', 'treffen', 'morgen früh']
+d64_el1_dl1_ff64-ep250;['index', 'verlobung', 'treffen', 'morgen', 'ich', 'überlegen']
+#30;Das klingt nach einer guten Idee.
+d64_el1_dl1_ff64-ep1000;['gut', 'idee']
+d64_el1_dl1_ff64-ep750;['gut', 'idee']
+d64_el1_dl1_ff64-ep500;['gut', 'idee']
+d64_el1_dl1_ff64-ep250;['gut', 'idee']
+#31;Ich bin noch unterwegs.
+d64_el1_dl1_ff64-ep1000;['ich', 'noch', 'ich']
+d64_el1_dl1_ff64-ep750;['ich', 'dorthin gehen']
+d64_el1_dl1_ff64-ep500;['ich', 'dorthin gehen']
+d64_el1_dl1_ff64-ep250;['ich', 'noch', 'unterwegs']
+#32;Kannst du mir deine Adresse schicken?
+d64_el1_dl1_ff64-ep1000;['du', 'adresse', 'du', 'schicken', 'schicken']
+d64_el1_dl1_ff64-ep750;['adresse', 'du', 'schicken', 'schicken', 'schicken', 'schicken', 'schicken']
+d64_el1_dl1_ff64-ep500;['du', 'adresse', 'du', 'schicken']
+d64_el1_dl1_ff64-ep250;['du', 'adresse', 'du', 'besuchen', 'thema', 'du']
+#33;Das habe ich nicht erwartet.
+d64_el1_dl1_ff64-ep1000;['erwartung', 'nicht']
+d64_el1_dl1_ff64-ep750;['erwartung', 'nicht']
+d64_el1_dl1_ff64-ep500;['erwartung', 'nicht']
+d64_el1_dl1_ff64-ep250;['erwartung', 'nicht', 'erwartung', 'nicht']
+#34;Es tut mir leid, das war ein Versehen.
+d64_el1_dl1_ff64-ep1000;['tut mir leid', 'ich', 'sehen auf', 'off']
+d64_el1_dl1_ff64-ep750;['tut mir leid', 'ich', 'sehen auf', 'off']
+d64_el1_dl1_ff64-ep500;['tut mir leid', 'ich', 'sehen auf', 'tut mir leid', 'ich']
+d64_el1_dl1_ff64-ep250;['tut mir leid', 'ich', 'sehen auf', 'off']
+#35;Kommst du mit ins Kino?
+d64_el1_dl1_ff64-ep1000;['kommen auffordern', 'kino', 'kommen', 'off']
+d64_el1_dl1_ff64-ep750;['kommen auffordern', 'kino', 'kommen', 'off']
+d64_el1_dl1_ff64-ep500;['kommen auffordern', 'kino', 'kommen']
+d64_el1_dl1_ff64-ep250;['kommen auffordern', 'kino', 'index', 'off']
+#36;Kann ich mit Karte zahlen?
+d64_el1_dl1_ff64-ep1000;['eintragen']
+d64_el1_dl1_ff64-ep750;['eintragen']
+d64_el1_dl1_ff64-ep500;['eintragen']
+d64_el1_dl1_ff64-ep250;['frage', 'betrügen', 'bekommen']
+#37;Was wÃ¼rdest du empfehlen?
+d64_el1_dl1_ff64-ep1000;['empfehlen', 'du']
+d64_el1_dl1_ff64-ep750;['empfehlen', 'du']
+d64_el1_dl1_ff64-ep500;['empfehlen', 'du']
+d64_el1_dl1_ff64-ep250;['empfehlen', 'du']
+#38;Ich bin mir nicht sicher.
+d64_el1_dl1_ff64-ep1000;['ich', 'unsicher']
+d64_el1_dl1_ff64-ep750;['ich', 'unsicher']
+d64_el1_dl1_ff64-ep500;['ich', 'sicher', 'nicht']
+d64_el1_dl1_ff64-ep250;['ich', 'sicher', 'nicht']
+#39;Das war wirklich lecker!
+d64_el1_dl1_ff64-ep1000;['lecker']
+d64_el1_dl1_ff64-ep750;['lecker']
+d64_el1_dl1_ff64-ep500;['lecker']
+d64_el1_dl1_ff64-ep250;['lecker']
+#40;Ich habe leider keine Zeit.
+d64_el1_dl1_ff64-ep1000;['ich', 'leider', 'kein', 'zeit', 'aussichtslos']
+d64_el1_dl1_ff64-ep750;['ich', 'leider', 'kein', 'zeit']
+d64_el1_dl1_ff64-ep500;['ich', 'leider', 'kein', 'zeit', 'aussichtslos']
+d64_el1_dl1_ff64-ep250;['leider', 'kein', 'zeit', 'leider']
+#41;Ich habe verschlafen.
+d64_el1_dl1_ff64-ep1000;['mund halten', 'fertig']
+d64_el1_dl1_ff64-ep750;['mund halten', 'fertig']
+d64_el1_dl1_ff64-ep500;['ich', 'rein hinein', 'ich']
+d64_el1_dl1_ff64-ep250;['ich', 'ich', 'ich', 'ich', 'ich']
+#42;Gibt es hier WLAN?
+d64_el1_dl1_ff64-ep1000;['es gibt']
+d64_el1_dl1_ff64-ep750;['index', 'es gibt']
+d64_el1_dl1_ff64-ep500;['index', 'es gibt']
+d64_el1_dl1_ff64-ep250;['es gibt']
+#43;Wo genau befindet sich das?
+d64_el1_dl1_ff64-ep1000;['wo', 'prod', 'sitzen']
+d64_el1_dl1_ff64-ep750;['wo', 'prod', 'sitzen']
+d64_el1_dl1_ff64-ep500;['wo', 'prod']
+d64_el1_dl1_ff64-ep250;['wo', 'prod']
+#44;Ich habe heute viel gelernt.
+d64_el1_dl1_ff64-ep1000;['ich', 'heute', 'lernen']
+d64_el1_dl1_ff64-ep750;['ich', 'heute', 'lernen']
+d64_el1_dl1_ff64-ep500;['heute', 'lernen']
+d64_el1_dl1_ff64-ep250;['heute', 'lernen']
+#45;Kannst du das bitte langsamer sagen?
+d64_el1_dl1_ff64-ep1000;['kann', 'bitte', 'langsam', 'bewerbung', 'bescheid']
+d64_el1_dl1_ff64-ep750;['kann', 'bitte', 'langsam']
+d64_el1_dl1_ff64-ep500;['kann', 'bitte', 'langsam', 'bewerbung', 'formular']
+d64_el1_dl1_ff64-ep250;['kann', 'bitte', 'langsam']
+#46;Ich bin gleich fertig.
+d64_el1_dl1_ff64-ep1000;['ich', 'fertig']
+d64_el1_dl1_ff64-ep750;['ich', 'fertig']
+d64_el1_dl1_ff64-ep500;['ich', 'fertig']
+d64_el1_dl1_ff64-ep250;['ich', 'fertig']
+#47;Wie war dein Wochenende?
+d64_el1_dl1_ff64-ep1000;['du', 'woche', 'wochenende']
+d64_el1_dl1_ff64-ep750;['du', 'wochenende']
+d64_el1_dl1_ff64-ep500;['du', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche', 'woche']
+d64_el1_dl1_ff64-ep250;['du', 'wochenende']
+#48;Morgen wird ein langer Tag.
+d64_el1_dl1_ff64-ep1000;['lang zeit', 'tag', 'morgen früh']
+d64_el1_dl1_ff64-ep750;['lang zeit', 'tag', 'morgen früh']
+d64_el1_dl1_ff64-ep500;['lang zeit', 'tag', 'morgen früh']
+d64_el1_dl1_ff64-ep250;['lang zeit', 'tag', 'morgen früh']
+#49;Ich muss dringend tanken.
+d64_el1_dl1_ff64-ep1000;['prod', 'prod', 'prod', 'prod']
+d64_el1_dl1_ff64-ep750;['ich', 'prod', 'prod', 'prod', 'prod']
+d64_el1_dl1_ff64-ep500;['ich', 'prod', 'prod', 'prod', 'prod']
+d64_el1_dl1_ff64-ep250;['prod', 'prod', 'prod', 'prod']
+#50;Wann geht der nÃ¤chste Bus?
+d64_el1_dl1_ff64-ep1000;['wann', 'du']
+d64_el1_dl1_ff64-ep750;['wann', 'du']
+d64_el1_dl1_ff64-ep500;['wann', 'orientierung']
+d64_el1_dl1_ff64-ep250;['wann', 'index', 'bus']
+#51;Ich habe meine Meinung geÃ¤ndert.
+d64_el1_dl1_ff64-ep1000;['ich', 'meinung', 'ich', 'beide']
+d64_el1_dl1_ff64-ep750;['ich', 'meinung', 'ich', 'beide']
+d64_el1_dl1_ff64-ep500;['ich', 'meinung', 'ich', 'umkleiden']
+d64_el1_dl1_ff64-ep250;['ich', 'meinung', 'ich', 'beide']
+#52;Ich habe kein Kleingeld dabei.
+d64_el1_dl1_ff64-ep1000;['ich', 'kein', 'ich', 'kein', 'geld', 'ich']
+d64_el1_dl1_ff64-ep750;['ich', 'kein', 'ich', 'dabei', 'ich']
+d64_el1_dl1_ff64-ep500;['ich', 'dabei', 'ich', 'dabei', 'ich']
+d64_el1_dl1_ff64-ep250;['ich', 'klein', 'ich', 'dabei']
+#53;Das macht keinen Sinn.
+d64_el1_dl1_ff64-ep1000;['sinn', 'voll']
+d64_el1_dl1_ff64-ep750;['sinn', 'voll']
+d64_el1_dl1_ff64-ep500;['sinn', 'voll']
+d64_el1_dl1_ff64-ep250;['sinn', 'voll']
+#54;Ich bin total mÃ¼de.
+d64_el1_dl1_ff64-ep1000;['ich', 'kurz']
+d64_el1_dl1_ff64-ep750;['ich', 'umschulung']
+d64_el1_dl1_ff64-ep500;['ich', 'kurz']
+d64_el1_dl1_ff64-ep250;['ich', 'schon', 'ich']
+#55;Das war eine lange Woche.
+d64_el1_dl1_ff64-ep1000;['lang zeit', 'woche']
+d64_el1_dl1_ff64-ep750;['lang zeit', 'woche']
+d64_el1_dl1_ff64-ep500;['lang zeit', 'woche']
+d64_el1_dl1_ff64-ep250;['lang zeit', 'woche']
+#56;Ich freue mich aufs Wochenende.
+d64_el1_dl1_ff64-ep1000;['ich', 'froh', 'wochenende kandidat stu', 'off']
+d64_el1_dl1_ff64-ep750;['ich', 'froh', 'ich', 'froh', 'ich']
+d64_el1_dl1_ff64-ep500;['ich', 'froh', 'ich', 'froh', 'ich']
+d64_el1_dl1_ff64-ep250;['ich', 'froh', 'ich', 'froh', 'ich', 'froh']
+#57;Ich kann mich nicht entscheiden.
+d64_el1_dl1_ff64-ep1000;['ich', 'entscheiden', 'ich', 'off']
+d64_el1_dl1_ff64-ep750;['ich', 'off']
+d64_el1_dl1_ff64-ep500;['ich', 'entscheiden', 'ich', 'off']
+d64_el1_dl1_ff64-ep250;['ich', 'entscheiden', 'ich']
+#58;Es ist schon ziemlich spÃ¤t.
+d64_el1_dl1_ff64-ep1000;['spinnen verrückt sein']
+d64_el1_dl1_ff64-ep750;['spinnen verrückt sein']
+d64_el1_dl1_ff64-ep500;['gest']
+d64_el1_dl1_ff64-ep250;['gest', 'gest', 'gest']
+#59;Kannst du mir bitte eine Nachricht schicken?
+d64_el1_dl1_ff64-ep1000;['kann', 'bewerbung', 'schicken', 'drücken mit daumen']
+d64_el1_dl1_ff64-ep750;['kann', 'bewerbung', 'schicken', 'drücken mit daumen']
+d64_el1_dl1_ff64-ep500;['kann', 'bewerbung', 'schicken', 'drücken mit daumen']
+d64_el1_dl1_ff64-ep250;['kann', 'bewerbung', 'schicken', 'drücken mit daumen']
+#60;Wo treffen wir uns?
+d64_el1_dl1_ff64-ep1000;['ich', 'treffen', 'wo']
+d64_el1_dl1_ff64-ep750;['ich', 'treffen', 'wo']
+d64_el1_dl1_ff64-ep500;['ich', 'treffen', 'wo']
+d64_el1_dl1_ff64-ep250;['ich', 'treffen']
+#61;Ich habe Kopfschmerzen.
+d64_el1_dl1_ff64-ep1000;['kopf', 'schmerz']
+d64_el1_dl1_ff64-ep750;['kopf', 'schmerz']
+d64_el1_dl1_ff64-ep500;['kopf', 'schmerz']
+d64_el1_dl1_ff64-ep250;['kopf', 'schmerz']
+#62;Kannst du mir bitte ein Glas Wasser bringen?
+d64_el1_dl1_ff64-ep1000;['kann', 'wasser', 'aufsteigen']
+d64_el1_dl1_ff64-ep750;['aufmerksamkeit', 'zeigen', 'riechen']
+d64_el1_dl1_ff64-ep500;['kann', 'wasser', 'aufsteigen']
+d64_el1_dl1_ff64-ep250;['kann', 'glas gefäss']
+#63;Ich bin unterwegs zu dir.
+d64_el1_dl1_ff64-ep1000;['du', 'ich', 'dorthin gehen']
+d64_el1_dl1_ff64-ep750;['ich', 'dorthin gehen']
+d64_el1_dl1_ff64-ep500;['ich', 'dorthin gehen']
+d64_el1_dl1_ff64-ep250;['du', 'ich', 'dorthin gehen']
+#64;Ich habe die Adresse nicht gefunden.
+d64_el1_dl1_ff64-ep1000;['ich', 'adresse', 'ich', 'finden']
+d64_el1_dl1_ff64-ep750;['ich', 'adresse', 'ich', 'finden', 'ich', 'finden']
+d64_el1_dl1_ff64-ep500;['ich', 'adresse', 'ich', 'finden']
+d64_el1_dl1_ff64-ep250;['ich', 'adresse', 'ich', 'bescheid']
+#65;Das war eine interessante Erfahrung.
+d64_el1_dl1_ff64-ep1000;['interesse']
+d64_el1_dl1_ff64-ep750;['interesse']
+d64_el1_dl1_ff64-ep500;['interesse']
+d64_el1_dl1_ff64-ep250;['interesse', 'erfahrung', 'interesse']
+#66;Ich bin wirklich stolz auf dich.
+d64_el1_dl1_ff64-ep1000;['stolz', 'ich']
+d64_el1_dl1_ff64-ep750;['stolz', 'ich']
+d64_el1_dl1_ff64-ep500;['stolz', 'ich']
+d64_el1_dl1_ff64-ep250;['stolz', 'ich']
+#67;Wir sehen uns spÃ¤ter!
+d64_el1_dl1_ff64-ep1000;['sehen', 'gebärden', 'bereich']
+d64_el1_dl1_ff64-ep750;['sehen', 'gebärden']
+d64_el1_dl1_ff64-ep500;['sehen', 'ich', 'sehen', 'off']
+d64_el1_dl1_ff64-ep250;['sehen', 'mitleid', 'off']
+#68;Das ist eine gute Frage.
+d64_el1_dl1_ff64-ep1000;['gut', 'frage']
+d64_el1_dl1_ff64-ep750;['gut', 'frage']
+d64_el1_dl1_ff64-ep500;['gut', 'frage']
+d64_el1_dl1_ff64-ep250;['gut', 'frage']
+#69;Ich brauche mehr Informationen dazu.
+d64_el1_dl1_ff64-ep1000;['ich', 'brauchen', 'information']
+d64_el1_dl1_ff64-ep750;['ich', 'brauchen', 'information']
+d64_el1_dl1_ff64-ep500;['ich', 'information']
+d64_el1_dl1_ff64-ep250;['ich', 'brauchen', 'information']
+#70;Kann ich mir das ausleihen?
+d64_el1_dl1_ff64-ep1000;['ich', 'kann', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen']
+d64_el1_dl1_ff64-ep750;['ich', 'kann', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen']
+d64_el1_dl1_ff64-ep500;['ich', 'streicheln', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen']
+d64_el1_dl1_ff64-ep250;['kann', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen', 'leihen']
+#71;Ich habe das Passwort vergessen.
+d64_el1_dl1_ff64-ep1000;['ich', 'vergessen']
+d64_el1_dl1_ff64-ep750;['ich', 'vergessen']
+d64_el1_dl1_ff64-ep500;['ich', 'vergessen']
+d64_el1_dl1_ff64-ep250;['ich', 'vergessen']
+#72;Was gibt es Neues?
+d64_el1_dl1_ff64-ep1000;['neu']
+d64_el1_dl1_ff64-ep750;['neu']
+d64_el1_dl1_ff64-ep500;['neu']
+d64_el1_dl1_ff64-ep250;['neu', 'neu']
+#73;Es gibt ein Problem mit der Bestellung.
+d64_el1_dl1_ff64-ep1000;['brauchen', 'brauchen', 'auto', 'index']
+d64_el1_dl1_ff64-ep750;['brauchen', 'brauchen', 'auto', 'index']
+d64_el1_dl1_ff64-ep500;['brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen']
+d64_el1_dl1_ff64-ep250;['brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen', 'brauchen']
+#74;Ich bin gerade beschÃ¤ftigt.
+d64_el1_dl1_ff64-ep1000;['ich', 'baff sein']
+d64_el1_dl1_ff64-ep750;['ich', 'baff sein']
+d64_el1_dl1_ff64-ep500;['ich', 'baff sein']
+d64_el1_dl1_ff64-ep250;['ich', 'sehen auf', 'ich']
+#75;Es tut mir leid fÃ¼r die VerspÃ¤tung.
+d64_el1_dl1_ff64-ep1000;['ich', 'gest', 'leiden', 'ich', 'sehen auf']
+d64_el1_dl1_ff64-ep750;['sehen auf', 'gest', 'leiden', 'ich', 'sehen']
+d64_el1_dl1_ff64-ep500;['ich', 'gest', 'leiden', 'gefühl', 'sehr']
+d64_el1_dl1_ff64-ep250;['ich', 'sehen auf', 'gest', 'leiden', 'gefühl', 'ich', 'sehen auf']
+#76;Ich habe meinen Regenschirm vergessen.
+d64_el1_dl1_ff64-ep1000;['ich', 'vergessen', 'ich']
+d64_el1_dl1_ff64-ep750;['ich', 'regen', 'ich', 'regen']
+d64_el1_dl1_ff64-ep500;['ich', 'vergessen', 'ich']
+d64_el1_dl1_ff64-ep250;['ich', 'regen', 'ich', 'vergessen', 'ich']
+#77;Ich hoffe, es geht dir gut.
+d64_el1_dl1_ff64-ep1000;['hoffen', 'gut', 'du', 'hoffen', 'gut']
+d64_el1_dl1_ff64-ep750;['hoffen', 'gut', 'du', 'gut']
+d64_el1_dl1_ff64-ep500;['hoffen', 'gut']
+d64_el1_dl1_ff64-ep250;['hoffen', 'gut', 'du']
+#78;Ich habe eine Ãœberraschung fÃ¼r dich.
+d64_el1_dl1_ff64-ep1000;['ich', 'mit', 'ich', 'mit']
+d64_el1_dl1_ff64-ep750;['ich', 'mit', 'ich', 'mit']
+d64_el1_dl1_ff64-ep500;['ich', '<num>']
+d64_el1_dl1_ff64-ep250;['ich', 'einsteigen', 'du']
+#79;Wie kann ich dir helfen?
+d64_el1_dl1_ff64-ep1000;['kann', 'helfen']
+d64_el1_dl1_ff64-ep750;['kann', 'helfen']
+d64_el1_dl1_ff64-ep500;['kann', 'helfen']
+d64_el1_dl1_ff64-ep250;['helfen', 'ich']
+#80;Ich bin gespannt auf deine Meinung.
+d64_el1_dl1_ff64-ep1000;['ich', 'meinung', 'dein', 'meinung', 'dein']
+d64_el1_dl1_ff64-ep750;['ich', 'meinung', 'dein', 'meinung', 'dein']
+d64_el1_dl1_ff64-ep500;['ich', 'meinung', 'dein', 'meinung', 'du']
+d64_el1_dl1_ff64-ep250;['ich', 'meinung', 'dein', 'meinung', 'dein', 'meinung', 'dein', 'meinung', 'dein', 'meinung', 'dein', 'meinung', 'dein', 'meinung', 'dein', 'meinung', 'dein', 'meinung', 'dein', 'meinung']
+#81;Das war ein MissverstÃ¤ndnis.
+d64_el1_dl1_ff64-ep1000;['index', 'miss', 'unterschreiben', 'warum', 'unterschreiben', 'index', 'unterschreiben']
+d64_el1_dl1_ff64-ep750;['index', 'miss', 'unterschreiben', 'warum', 'verwirrt sein', 'unterschreiben', 'index']
+d64_el1_dl1_ff64-ep500;['index', 'miss', 'unterschreiben', 'warum', 'index', 'unterschreiben', 'warum']
+d64_el1_dl1_ff64-ep250;['wahl', 'warum', 'warum', 'warum', 'index', 'kommunikation', 'warum']
+#82;Ich habe mich verlaufen.
+d64_el1_dl1_ff64-ep1000;['ich', 'ablauf']
+d64_el1_dl1_ff64-ep750;['ich', 'ablauf']
+d64_el1_dl1_ff64-ep500;['ich', 'laufen maschine']
+d64_el1_dl1_ff64-ep250;['ich', 'gest', 'laufen maschine']
+#83;Ich bin fast da.
+d64_el1_dl1_ff64-ep1000;['ich', 'fast', 'fast', 'fast']
+d64_el1_dl1_ff64-ep750;['ich', 'fast', 'fast', 'fast']
+d64_el1_dl1_ff64-ep500;['ich', 'fast', 'fast']
+d64_el1_dl1_ff64-ep250;['ich', 'fast']
+#84;Ich melde mich spÃ¤ter nochmal.
+d64_el1_dl1_ff64-ep1000;['immer', 'ich', 'denken', 'index', 'ich', 'index']
+d64_el1_dl1_ff64-ep750;['immer', 'ich', 'seele', 'mit', 'foto', 'index']
+d64_el1_dl1_ff64-ep500;['immer', 'ich', 'index', 'kosten', 'ich']
+d64_el1_dl1_ff64-ep250;['immer', 'ich', 'überlegen', 'du', 'ich', 'nervös', 'seele']
+#85;Das war eine lange Reise.
+d64_el1_dl1_ff64-ep1000;['noch', 'lang zeit']
+d64_el1_dl1_ff64-ep750;['noch']
+d64_el1_dl1_ff64-ep500;['lang']
+d64_el1_dl1_ff64-ep250;['lang']
+#86;Ich muss noch etwas erledigen.
+d64_el1_dl1_ff64-ep1000;['ich', 'rest', 'tun']
+d64_el1_dl1_ff64-ep750;['ich', 'rest', 'tun']
+d64_el1_dl1_ff64-ep500;['ich', 'rest', 'tun']
+d64_el1_dl1_ff64-ep250;['ich', 'rest', 'tun']
+#87;Ich bin sehr zufrieden damit.
+d64_el1_dl1_ff64-ep1000;['zufrieden']
+d64_el1_dl1_ff64-ep750;['ich', 'zufrieden', 'ich']
+d64_el1_dl1_ff64-ep500;['zufrieden']
+d64_el1_dl1_ff64-ep250;['ich', 'zufrieden']
+#88;Das war nicht meine Absicht.
+d64_el1_dl1_ff64-ep1000;['absicht', 'wollen', 'nicht']
+d64_el1_dl1_ff64-ep750;['absicht', 'wollen', 'nicht']
+d64_el1_dl1_ff64-ep500;['absicht', 'wollen', 'nicht']
+d64_el1_dl1_ff64-ep250;['absicht', 'wollen', 'nicht']
+#89;Ich bin froh, dass wir darÃ¼ber gesprochen haben.
+d64_el1_dl1_ff64-ep1000;['ich', 'froh', 'sprechen']
+d64_el1_dl1_ff64-ep750;['ich', 'froh', 'sprechen']
+d64_el1_dl1_ff64-ep500;['froh', 'sprechen']
+d64_el1_dl1_ff64-ep250;['ich', 'froh', 'sprechen']
+#90;Hast du die Hausaufgaben gemacht?
+d64_el1_dl1_ff64-ep1000;['du', 'haus', 'index']
+d64_el1_dl1_ff64-ep750;['du', '<num>', 'haus', 'index']
+d64_el1_dl1_ff64-ep500;['du', 'haus', 'index', 'prod']
+d64_el1_dl1_ff64-ep250;['du', 'haus', 'du']
+#91;Ich brauche eine neue Brille.
+d64_el1_dl1_ff64-ep1000;['suchen tastend', 'ich', 'suchen', 'neu', 'brille']
+d64_el1_dl1_ff64-ep750;['ich', 'suchen', 'neu', 'brille']
+d64_el1_dl1_ff64-ep500;['ich', 'brauchen', 'neu', 'brille']
+d64_el1_dl1_ff64-ep250;['ich', 'brauchen', 'neu', 'brille']
+#92;Ich bin dankbar fÃ¼r deine Hilfe.
+d64_el1_dl1_ff64-ep1000;['ich', 'danke', 'helfen']
+d64_el1_dl1_ff64-ep750;['ich', 'danke', 'auf person', 'helfen']
+d64_el1_dl1_ff64-ep500;['ich', 'danke', 'helfen']
+d64_el1_dl1_ff64-ep250;['ich', 'dankbar', 'auf person', 'helfen']
+#93;Wann hast du Feierabend?
+d64_el1_dl1_ff64-ep1000;['du', 'abend', 'zünden']
+d64_el1_dl1_ff64-ep750;['du', 'abend', 'du']
+d64_el1_dl1_ff64-ep500;['wann', 'du']
+d64_el1_dl1_ff64-ep250;['wann', 'du', 'früh', 'feierabend', 'du']
+#94;Ich bin heute gut gelaunt.
+d64_el1_dl1_ff64-ep1000;['ich', 'wohl', 'bis heute']
+d64_el1_dl1_ff64-ep750;['ich', 'wohl', 'bis heute', 'etwas super finden']
+d64_el1_dl1_ff64-ep500;['ich', 'wohl', 'bis heute']
+d64_el1_dl1_ff64-ep250;['ich', 'haben', 'ich', 'sehen']
+#95;Kann ich dich kurz sprechen?
+d64_el1_dl1_ff64-ep1000;['kann', 'sprechen']
+d64_el1_dl1_ff64-ep750;['kann', 'sprechen']
+d64_el1_dl1_ff64-ep500;['kann', 'kurz', 'sprechen']
+d64_el1_dl1_ff64-ep250;['kann', 'sprechen', 'ich', 'sprechen']
+#96;Das war eine tolle Erfahrung.
+d64_el1_dl1_ff64-ep1000;['toll', 'erfahrung', 'toll', 'erfahrung', 'toll']
+d64_el1_dl1_ff64-ep750;['toll', 'erfahrung', 'toll']
+d64_el1_dl1_ff64-ep500;['toll', 'erfahrung', 'toll']
+d64_el1_dl1_ff64-ep250;['toll', 'erfahrung', 'toll', 'erfahrung', 'toll']
+#97;Ich wÃ¼nsche dir einen schÃ¶nen Tag!
+d64_el1_dl1_ff64-ep1000;['sagen', 'index', 'ich', 'plötzlich', 'ich', 'bescheid']
+d64_el1_dl1_ff64-ep750;['sagen', 'index', 'ich', 'zeitung']
+d64_el1_dl1_ff64-ep500;['sagen', 'index', 'ich', 'plötzlich', 'ich']
+d64_el1_dl1_ff64-ep250;['index', 'zorn', 'auf person', 'ich', 'bescheid']
+#98;Gute Nacht!
+d64_el1_dl1_ff64-ep1000;['gut']
+d64_el1_dl1_ff64-ep750;['gut']
+d64_el1_dl1_ff64-ep500;['gut']
+d64_el1_dl1_ff64-ep250;['gut']
+#99;Die PrÃ¤sentation war gut gemacht.
+d64_el1_dl1_ff64-ep1000;['index', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>']
+d64_el1_dl1_ff64-ep750;['index', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>']
+d64_el1_dl1_ff64-ep500;['<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>', '<num>']
+d64_el1_dl1_ff64-ep250;['index', 'drehen', 'index', 'drehen', 'kaputt']
+#100;Bitte ziehe deine Schuhe im Haus aus.
+d64_el1_dl1_ff64-ep1000;['dein', 'haus', 'bitte', 'haus', 'bitte']
+d64_el1_dl1_ff64-ep750;['dein', 'haus', 'bitte', 'haus', 'bitte']
+d64_el1_dl1_ff64-ep500;['dein', 'haus', 'bitte']
+d64_el1_dl1_ff64-ep250;['index', 'haus', 'verkaufen']

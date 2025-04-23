@@ -26,7 +26,6 @@ def load_pickle(file):
 
 
 def filter_outliers(data, threshold=2):
-    """Filter out outliers based on Z-score."""
     data_array = np.array(data)
     z_scores = np.abs(zscore(data_array, axis=0))
     filtered_data = data_array[(z_scores < threshold).all(axis=1)]
@@ -191,145 +190,23 @@ class BlenderCoords:
         return rel_coords
 
 
-# class BlenderCoords_old:
-#     def __init__(self, rec):
-#         self.rec = rec
-#         self.pose = self.get_pose_or_face()
-#         self.face = self.get_pose_or_face(nose_pos=self.pose[:, 0, :])
-#         self.hand_left = self.get_hand('left', self.pose[:, 7, :])
-#         self.hand_right = self.get_hand('right', self.pose[:, 4, :])
-#         self.rel_pose = self.rel_coords('pose')
-#         self.rel_face = self.rel_coords('face')
-#         self.rel_hand_left = self.rel_coords('hand_left')
-#         self.rel_hand_right = self.rel_coords('hand_right')
-#
-#
-#     def rel_coords(self, part):
-#         if part == 'pose':
-#             rel = np.zeros(np.shape(self.pose))
-#             p = self.pose
-#             bases = (1, 1, 1, 2, 3, 1, 5, 6, 1, 8, 9, 10, 8, 12, 13, 0, 0, 15, 16, 14, 19, 14, 11, 22, 11)
-#         elif part == 'hand_left':
-#             rel = np.zeros(np.shape(self.hand_left))
-#             p = self.hand_left
-#             bases = (0, 0, 1, 2, 3, 0, 5, 6, 7, 0, 9, 10, 11, 0, 13, 14, 15, 0, 17, 18, 19)
-#         elif part == 'hand_right':
-#             rel = np.zeros(np.shape(self.hand_right))
-#             p = self.hand_right
-#             bases = (0, 0, 1, 2, 3, 0, 5, 6, 7, 0, 9, 10, 11, 0, 13, 14, 15, 0, 17, 18, 19)
-#         elif part == 'face':
-#             rel = np.zeros(np.shape(self.face))
-#             p = self.face
-#             bases = (1, 2, 3, 4, 5, 6, 7, 8, 27, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20, 21, 27, 27, 22, 23, 24, 25,
-#                      27, 27, 28, 29, 32, 33, 30, 33, 34, 37, 38, 39, 27, 39, 40, 27, 42, 43, 44, 47, 42,
-#                      48, 50, 51, 62, 51, 52, 53, 56, 57, 66, 57, 58, 61, 62, 27, 62, 63, 66, 62, 66, 39, 42)
-#         else:
-#             return
-#
-#         for i, b in enumerate(bases):
-#             rel[:, i, :] = p[:, i, :] - p[:, b, :]
-#
-#         return rel
-#
-#
-#     def get_pose_or_face(self, nose_pos=None):
-#         if nose_pos is None:
-#             part = 'pose'
-#             num_points = 25
-#             ref_point = 1
-#         else:
-#             part = 'face'
-#             num_points = 70
-#             ref_point = 27
-#
-#         front = self.rec['front'][part]
-#         side = self.rec['side'][part]
-#         person = self.rec['person']
-#
-#         # reshape to (frame, landmark, [x, y, acc])
-#         sh = (len(front), num_points, 3)
-#         front = np.array(front).reshape(sh)
-#         side = np.array(side).reshape(sh)
-#
-#         front = front[:, :, :2]
-#         side = side[:, :, :2]
-#
-#         base_front = front[:, ref_point, :]
-#         front[:, :, 0] = front[:, :, 0] - base_front[:, 0, np.newaxis]
-#         front[:, :, 1] = front[:, :, 1] - base_front[:, 1, np.newaxis]
-#
-#         base_side = side[:, ref_point, :]
-#         side[:, :, 0] = side[:, :, 0] - base_side[:, 0, np.newaxis]
-#         if person == 'A':
-#             side[:, :, 0] = - side[:, :, 0]
-#
-#         blender_coords = np.zeros(sh)
-#         # Openpose: x_front=right, y_front=up, x_side=forwards
-#         # Blender: x=right, y=back, z=up
-#         blender_coords[:, :, 0] = front[:, :, 0]
-#         blender_coords[:, :, 1] = side[:, :, 0]
-#         blender_coords[:, :, 2] = front[:, :, 1]
-#
-#         if nose_pos is not None:
-#             blender_coords[:, :, 0] = np.add(blender_coords[:, :, 0], nose_pos[:, 0, np.newaxis])
-#             blender_coords[:, :, 1] = np.add(blender_coords[:, :, 1], nose_pos[:, 1, np.newaxis])
-#             blender_coords[:, :, 2] = np.add(blender_coords[:, :, 2], nose_pos[:, 2, np.newaxis])
-#
-#         return blender_coords
-#
-#
-#     def get_hand(self, side, wrist_pos):
-#         if side == 'left':
-#             hand = 'hand_left'
-#         elif side == 'right':
-#             hand = 'hand_right'
-#         else:
-#             return
-#
-#         front = self.rec['front'][hand]
-#         side = self.rec['side'][hand]
-#         person = self.rec['person']
-#
-#         # reshape to (frame, landmark, [x, y, acc])
-#         sh = (len(front), 21, 3)
-#         front = np.array(front).reshape(sh)
-#         side = np.array(side).reshape(sh)
-#
-#         front = front[:, :, :2]
-#         side = side[:, :, :2]
-#
-#         base_front = front[:, 0, :]
-#         front[:, :, 0] = front[:, :, 0] - base_front[:, 0, np.newaxis]
-#         front[:, :, 1] = front[:, :, 1] - base_front[:, 1, np.newaxis]
-#
-#         base_side = side[:, 0, :]
-#         side[:, :, 0] = side[:, :, 0] - base_side[:, 0, np.newaxis]
-#         if person == 'A':
-#             side[:, :, 0] = - side[:, :, 0]
-#
-#         blender_coords = np.zeros(sh)
-#         # Openpose: x_front=right, y_front=up, x_side=back
-#         # Blender: x=right, y=back, z=up
-#         blender_coords[:, :, 0] = np.add(front[:, :, 0], wrist_pos[:, 0, np.newaxis])
-#         blender_coords[:, :, 1] = np.add(side[:, :, 0], wrist_pos[:, 1, np.newaxis])
-#         blender_coords[:, :, 2] = np.add(front[:, :, 1], wrist_pos[:, 2, np.newaxis])
-#
-#         return blender_coords
-
-
 class TrajectoryCalculator:
-    def __init__(self, word_file, directory='', rec_id=None, vis_only=False):
+    def __init__(self, word_file, directory='', rec_id=None, vis_only=False, print_rid_list=False):
         self.word = word_file[:-4]
         self.recordings = load_pickle(directory + 'vocab/landmarks/dw-dgs/' + word_file)
+
+        recording_ids = list(self.recordings.keys())
+        if print_rid_list:
+            print(f"List of {len(recording_ids)} Recording IDs:")
+            for id in recording_ids:
+                print(id)
+
         if rec_id is not None:
             self.choice = rec_id
             if not vis_only:
                 self.blender = BlenderCoords(self.recordings[rec_id], rec_id)
-
         else:
             success = False
-            recording_ids = list(self.recordings.keys())
-
             while not success:
                 choice = random.choice(recording_ids)
                 if not 5 < len(self.recordings[choice]['front']['pose']) < 15:
@@ -346,58 +223,6 @@ class TrajectoryCalculator:
                     print(e)
                     recording_ids.remove(choice)
 
-        # self.projections = timeline_projection(self.recordings)
-        # self.all_trajectories = self.interpolate(remove_score=True)
-
-
-    # def find_average(self):
-    #     record = self.interpolate(remove_score=True)
-    #     return
-    #
-    # def interpolate(self, remove_score=False):
-    #     all_traj = {'pose': {'front': {}, 'side': {}},
-    #                 'face': {'front': {}, 'side': {}},
-    #                 'hand_left': {'front': {}, 'side': {}},
-    #                 'hand_right': {'front': {}, 'side': {}}}
-    #     for (ident, record), projection in zip(self.recordings.items(), self.projections):
-    #         cur_traj = {'pose': {'front': [], 'side': []},
-    #                     'face': {'front': [], 'side': []},
-    #                     'hand_left': {'front': [], 'side': []},
-    #                     'hand_right': {'front': [], 'side': []}}
-    #
-    #         for i, step in enumerate(projection):
-    #             low = math.floor(step)
-    #             high = math.ceil(step)
-    #             deci = step - low
-    #
-    #             for (lm_type, front), side in zip(record['front'].items(), record['side'].values()):
-    #                 cur_traj[lm_type]['front'].append(
-    #                     interpolate_pair(front[low], front[high], deci, remove_score=remove_score))
-    #                 cur_traj[lm_type]['side'].append(
-    #                     interpolate_pair(side[low], side[high], deci, remove_score=remove_score))
-    #
-    #         for key in all_traj.keys():
-    #             all_traj[key]['front'][ident] = cur_traj[key]['front']
-    #             all_traj[key]['side'][ident] = cur_traj[key]['side']
-    #
-    #     new_all_traj = {}
-    #     for part, perspectives in all_traj.items():
-    #         for perspective, files in perspectives.items():
-    #             for file_id, frames in files.items():
-    #                 for frame_idx, landmarks in enumerate(frames):
-    #                     if frame_idx not in new_all_traj:
-    #                         new_all_traj[frame_idx] = {}
-    #                     if part not in new_all_traj[frame_idx]:
-    #                         new_all_traj[frame_idx][part] = {}
-    #                     if perspective not in new_all_traj[frame_idx][part]:
-    #                         new_all_traj[frame_idx][part][perspective] = {}
-    #                     new_all_traj[frame_idx][part][perspective][file_id] = landmarks
-    #     return new_all_traj
-    #
-    # def relative_coordinates_2D(self):
-    #     nose_0 = [coords[0:2] for coords in self.all_trajectories[0]['pose']['front'].values()]
-    #     nose_base = np.mean(np.array(nose_0), axis=0)
-    #
     def visualize(self, wait_between_frames=2000):
         front = self.recordings[self.choice]['front']
         p_lines = [[0, 1], [1, 8], [1, 2], [1, 5], [2, 3], [5, 6], [3, 4], [6, 7], [0, 15], [0, 16], [15, 17], [16, 18]]
@@ -471,15 +296,31 @@ class TrajectoryCalculator:
 
 if __name__ == '__main__':
 
-    for file in os.listdir('vocab/landmarks/dw-dgs'):
+    #file_list = os.listdir('vocab/landmarks/dw-dgs')
+    file_list = ['abend.pkl']
+
+    write_to_json = False
+    visualize = True
+    print_rec_ids = True
+    time_between_frames = 500
+
+    rec_id = "1430396 9901"             # None for random
+
+    for file in file_list:
         print(file)
 
         try:
-            tc = TrajectoryCalculator(file)
-            # tc.visualize()
-            with open('blender/vocab/' + file[:-4] + '.json', 'w') as f:
-                json.dump(tc.blender.to_origin, f)
+            tc = TrajectoryCalculator(file, rec_id=rec_id, print_rid_list=print_rec_ids, vis_only=not write_to_json)
+
+            if visualize:
+                tc.visualize(wait_between_frames=time_between_frames)
+
+            if write_to_json:
+                with open('blender/vocab/' + file[:-4] + '.json', 'w') as f:
+                    json.dump(tc.blender.to_origin, f)
+
             del tc
+
         except Exception as e:
             print(e)
             continue

@@ -3,6 +3,7 @@ import os
 import subprocess
 from collections import deque
 import blf
+import bgl
 
 bl_info = {
     "name": "DGS Translator Add-on",
@@ -126,19 +127,19 @@ def draw_subtitles(text):
     global subtitles_text, draw_handler
     subtitles_text = text
 
-    # Remove existing draw handler
+    # remove existing draw handler
     if draw_handler is not None:
         bpy.types.SpaceView3D.draw_handler_remove(draw_handler, 'WINDOW')
 
-    # Register new draw handler
+    # register new draw handler
     draw_handler = bpy.types.SpaceView3D.draw_handler_add(draw_callback, (None, None), 'WINDOW', 'POST_PIXEL')
 
 
 def draw_callback(self, context):
-    """Draw callback function to render text"""
     font_id = 0
-    blf.position(font_id, 20, 40, 0)
-    blf.size(font_id, 20)
+    blf.position(font_id, 80, 40, 0)
+    blf.size(font_id, 30)
+    blf.color(font_id, 1, 0, 0, 1)
     blf.draw(font_id, subtitles_text)
 
 
@@ -148,7 +149,8 @@ def toggle_recording():
         # Start recording
         venv_python = bpy.context.scene.recording_venv_python
         script_path = bpy.context.scene.recording_script_path
-        recording_process = subprocess.Popen([venv_python, script_path])
+        mic_idx = bpy.context.scene.mic_id
+        recording_process = subprocess.Popen([venv_python, script_path, "--mic_idx", mic_idx])
         print("Loading...")
     else:
         # Stop recording
@@ -190,6 +192,8 @@ class DgsTranslatorPanel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         
+        layout.prop(context.scene, "mic_id")
+        
         row = layout.row()
         row.operator("recording.start_main", text="Start Translator")
         
@@ -228,13 +232,15 @@ def register():
     
     bpy.types.Scene.recording_venv_python = bpy.props.StringProperty(
         name="Python Executable",
-        default=r"C:\path\to\your\venv\Scripts\python.exe"
-    )
+        default=r"C:\path\to\your\venv\Scripts\python.exe")
     
     bpy.types.Scene.recording_script_path = bpy.props.StringProperty(
         name="Script Path",
-        default=r"D:\path\to\your\script.py"
-    )
+        default=r"D:\path\to\your\script.py")
+    
+    bpy.types.Scene.mic_id = bpy.props.StringProperty(
+        name="Use Microphone",
+        default="1")
 
 
 def unregister():
@@ -245,6 +251,7 @@ def unregister():
     
     del bpy.types.Scene.recording_venv_python
     del bpy.types.Scene.recording_script_path
+    del bpy.types.Scene.mic_id
 
 
 if __name__ == "__main__":

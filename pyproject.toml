@@ -38,6 +38,9 @@ speechrecognition = "^3.11.0"
 pyaudio = "^0.2.14"
 google-api-python-client = "^2.151.0"
 vosk = "^0.3.45"
+spacy = "^3.8.4"
+openai-whisper = "^20240930"
+transformers = "^4.50.1"
 
 
 [build-system]

@@ -10,6 +10,10 @@ import torchtext; torchtext.disable_torchtext_deprecation_warning()
 from torchtext.data import get_tokenizer
 
 
+sos = 0
+eos = 1
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 def load_vocabulary(vocab):
     return {idx: word for idx, word in enumerate(vocab)}, {word: idx for idx, word in enumerate(vocab)}
 
@@ -47,6 +51,103 @@ def clean_token(token):
     token = token + number
 
     return token
+
+
+class AttnSeq2Seq():
+    def __init__(self, vocabulary, embedder, max_iter=20, hidden_size=128, dropout_p=0.1):
+        self.embedder = compress_fasttext.models.CompressedFastTextKeyedVectors.load(embedder)
+        self.max_iter = max_iter
+        self.idx2token, self.token2idx = load_vocabulary(vocabulary)
+        self.idx2vec = self.generate_vocab_vectors()
+        self.embedding_size = self.idx2vec.size(dim=1)
+        self.output_size = len(self.idx2token)
+        self.hidden_size = hidden_size
+        self.dropout_p = dropout_p
+        self.sos = torch.tensor([0], device=self.device)
+        self.eos = torch.tensor([1], device=self.device)
+
+        self.encoder = EncoderRNN(self.embedding_size, self.hidden_size, dropout_p=self.dropout_p, device=self.device)
+        self.decoder = AttnDecoderRNN(self.output_size, self.hidden_size, self.max_iter, dropout_p=self.dropout_p, device=self.device)
+
+
+class EncoderRNN(nn.Module):
+    def __init__(self, input_size, hidden_size, dropout_p=0.1):
+        super(EncoderRNN, self).__init__()
+        self.hidden_size = hidden_size
+
+        self.gru = nn.GRU(hidden_size, hidden_size, batch_first=True)
+        self.dropout = nn.Dropout(dropout_p)
+
+    def forward(self, input):
+        output, hidden = self.gru(input)
+        return output, hidden
+
+
+class AttnDecoderRNN(nn.Module):
+    def __init__(self, output_size, hidden_size, max_iter, dropout_p=0.1):
+        super(AttnDecoderRNN, self).__init__()
+        self.max_iter = max_iter
+        self.embedding = nn.Embedding(output_size, hidden_size)
+        self.attention = BahdanauAttention(hidden_size)
+        self.gru = nn.GRU(2 * hidden_size, hidden_size, batch_first=True)
+        self.out = nn.Linear(hidden_size, output_size)
+        self.dropout = nn.Dropout(dropout_p)
+
+    def forward(self, encoder_outputs, encoder_hidden, target_tensor=None):
+        batch_size = encoder_outputs.size(0)
+        decoder_input = torch.empty(batch_size, 1, dtype=torch.long, device=device).fill_(sos)
+        decoder_hidden = encoder_hidden
+        decoder_outputs = []
+        attentions = []
+
+        for i in range(self.max_iter):
+            decoder_output, decoder_hidden, attn_weights = self.forward_step(decoder_input, decoder_hidden, encoder_outputs)
+            decoder_outputs.append(decoder_output)
+            attentions.append(attn_weights)
+
+            if target_tensor is not None:
+                # Teacher forcing: Feed the target as the next input
+                decoder_input = target_tensor[:, i].unsqueeze(1) # Teacher forcing
+            else:
+                # Without teacher forcing: use its own predictions as the next input
+                _, topi = decoder_output.topk(1)
+                decoder_input = topi.squeeze(-1).detach()  # detach from history as input
+
+        decoder_outputs = torch.cat(decoder_outputs, dim=1)
+        decoder_outputs = F.log_softmax(decoder_outputs, dim=-1)
+        attentions = torch.cat(attentions, dim=1)
+
+        return decoder_outputs, decoder_hidden, attentions
+
+
+    def forward_step(self, input, hidden, encoder_outputs):
+        embedded =  self.dropout(self.embedding(input))
+
+        query = hidden.permute(1, 0, 2)
+        context, attn_weights = self.attention(query, encoder_outputs)
+        input_gru = torch.cat((embedded, context), dim=2)
+
+        output, hidden = self.gru(input_gru, hidden)
+        output = self.out(output)
+
+        return output, hidden, attn_weights
+    
+
+class BahdanauAttention(nn.Module):
+    def __init__(self, hidden_size):
+        super(BahdanauAttention, self).__init__()
+        self.Wa = nn.Linear(hidden_size, hidden_size)
+        self.Ua = nn.Linear(hidden_size, hidden_size)
+        self.Va = nn.Linear(hidden_size, 1)
+
+    def forward(self, query, keys):
+        scores = self.Va(torch.tanh(self.Wa(query) + self.Ua(keys)))
+        scores = scores.squeeze(2).unsqueeze(1)
+
+        weights = F.softmax(scores, dim=-1)
+        context = torch.bmm(weights, keys)
+
+        return context, weights
 
 
 class Seq2Seq(nn.Module):
