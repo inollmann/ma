@@ -25,3 +25,15 @@ main3.py
 jupy/eval/state/d512_el3_dl3_ff512.pt
 jupy/eval/state/d512_el3_dl3_ff512_minval.pt
 jupy/cc.de.300.bin
+state_dict.pt
+state_dict_v2.pt
+state_dict_v2_old.pt
+state_dict_reduced.pt
+state_dict_reduced-Copy1.pt
+seq2seq_backup.py
+holistic_landmarker_test.py
+ASLalphabet.jpg
+blender/SIGGI.blend
+blender/SIGGI.blend1
+blender/maps/bake/SIGGI.obj
+blender/maps/bake/SIGGI.mtl
