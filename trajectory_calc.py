@@ -302,7 +302,7 @@ if __name__ == '__main__':
     write_to_json = False
     visualize = True
     print_rec_ids = True
-    time_between_frames = 500
+    time_between_frames = 2000
 
     rec_id = "1430396 9901"             # None for random
 

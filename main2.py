@@ -25,7 +25,7 @@ def decode(model, src_tensor, max_len, dgs_token2idx, dgs_idx2token, device, rem
     # Encode source (src_seq_len, 1)
     src = src_tensor
     # Source embedding, positional encoding, encoder
-    memory = model.encoder(model.pos_encoder(model.src_embedding(src) * (model.model_dim ** 0.5)))
+    memory, _ = model.encoder(model.pos_encoder(model.src_embedding(src) * (model.model_dim ** 0.5)))
     tgt_indices = [dgs_token2idx[SOS_TOKEN]]
     for _ in range(max_len):
         tgt_tensor = torch.tensor(tgt_indices, dtype=torch.long, device=device).unsqueeze(1)  # (tgt_seq_len, 1)
@@ -37,7 +37,7 @@ def decode(model, src_tensor, max_len, dgs_token2idx, dgs_idx2token, device, rem
         tgt_mask = torch.triu(torch.ones((tgt_seq_len, tgt_seq_len), device=device) == 1).transpose(0, 1)
         tgt_mask = tgt_mask.float().masked_fill(tgt_mask == 0, float('-inf')).masked_fill(tgt_mask == 1, float(0.0))
         # Decoder
-        out = model.decoder(tgt_embedded, memory, tgt_mask=tgt_mask)
+        out, _, _ = model.decoder(tgt_embedded, memory, tgt_mask=tgt_mask)
         out = model.fc_out(out)
         # Get token prediction
         prob = out[-1, 0]

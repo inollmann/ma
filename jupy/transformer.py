@@ -47,13 +47,13 @@ class TransformerEncoderLayer(nn.Module):
         if src_mask is not None and src_key_padding_mask is not None:
             src_key_padding_mask = src_key_padding_mask.to(dtype=src_mask.dtype)
 
-        attn_output, _ = self.self_attn(src, src, src, attn_mask=src_mask,
+        attn_output, attn_weights = self.self_attn(src, src, src, attn_mask=src_mask,
                                           key_padding_mask=src_key_padding_mask)
         src = self.norm1(src + self.dropout(attn_output))
         # Feed-forward sublayer
         ff_output = self.linear2(F.relu(self.linear1(src)))
         src = self.norm2(src + self.dropout(ff_output))
-        return src
+        return src, attn_weights
 
 
 class TransformerDecoderLayer(nn.Module):
@@ -73,20 +73,20 @@ class TransformerDecoderLayer(nn.Module):
         # Convert tgt_key_padding_mask if needed for self-attention:
         if tgt_mask is not None and tgt_key_padding_mask is not None:
             tgt_key_padding_mask = tgt_key_padding_mask.to(dtype=tgt_mask.dtype)
-        self_attn_output, _ = self.self_attn(tgt, tgt, tgt, attn_mask=tgt_mask,
+        self_attn_output, self_attn_weights = self.self_attn(tgt, tgt, tgt, attn_mask=tgt_mask,
                                                key_padding_mask=tgt_key_padding_mask)
         tgt = self.norm1(tgt + self.dropout(self_attn_output))
         
         # Convert memory_key_padding_mask if needed for encoder-decoder attention:
         if memory_mask is not None and memory_key_padding_mask is not None:
             memory_key_padding_mask = memory_key_padding_mask.to(dtype=memory_mask.dtype)
-        enc_dec_attn_output, _ = self.multihead_attn(tgt, memory, memory, attn_mask=memory_mask,
+        enc_dec_attn_output, enc_dec_attn_weights = self.multihead_attn(tgt, memory, memory, attn_mask=memory_mask,
                                                      key_padding_mask=memory_key_padding_mask)
         tgt = self.norm2(tgt + self.dropout(enc_dec_attn_output))
         
         ff_output = self.linear2(F.relu(self.linear1(tgt)))
         tgt = self.norm3(tgt + self.dropout(ff_output))
-        return tgt
+        return tgt, self_attn_weights, enc_dec_attn_weights
 
 
 class TransformerEncoder(nn.Module):
@@ -95,9 +95,11 @@ class TransformerEncoder(nn.Module):
         self.layers = nn.ModuleList([copy.deepcopy(encoder_layer) for _ in range(num_layers)])
 
     def forward(self, src, mask=None, src_key_padding_mask=None):
+        attn_weights_list = []
         for layer in self.layers:
-            src = layer(src, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
-        return src
+            src, attn_weights = layer(src, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
+            attn_weights_list.append(attn_weights)
+        return src, attn_weights_list
 
 
 class TransformerDecoder(nn.Module):
@@ -107,11 +109,14 @@ class TransformerDecoder(nn.Module):
 
     def forward(self, tgt, memory, tgt_mask=None, memory_mask=None,
                 tgt_key_padding_mask=None, memory_key_padding_mask=None):
+        self_attn_weights_list = []
+        enc_dec_attn_weights_list = []
         for layer in self.layers:
-            tgt = layer(tgt, memory, tgt_mask=tgt_mask, memory_mask=memory_mask,
-                        tgt_key_padding_mask=tgt_key_padding_mask,
-                        memory_key_padding_mask=memory_key_padding_mask)
-        return tgt
+            tgt, self_attn_weights, enc_dec_attn_weights = layer(tgt, memory, tgt_mask=tgt_mask, memory_mask=memory_mask, 
+                                                                 tgt_key_padding_mask=tgt_key_padding_mask, memory_key_padding_mask=memory_key_padding_mask)
+            self_attn_weights_list.append(self_attn_weights)
+            enc_dec_attn_weights_list.append(enc_dec_attn_weights)
+        return tgt, self_attn_weights_list, enc_dec_attn_weights_list
 
 
 class Transformer(nn.Module):
@@ -147,15 +152,15 @@ class Transformer(nn.Module):
         tgt_key_padding_mask = tgt_key_padding_mask.to(dtype=tgt_mask.dtype) ###
         src = self.src_embedding(src) * math.sqrt(self.model_dim)
         src = self.pos_encoder(src)
-        memory = self.encoder(src, mask=src_mask, src_key_padding_mask=src_key_padding_mask)
+        memory, encoder_attn_weights = self.encoder(src, mask=src_mask, src_key_padding_mask=src_key_padding_mask)
 
         tgt = self.tgt_embedding(tgt) * math.sqrt(self.model_dim)
         tgt = self.pos_decoder(tgt)
-        output = self.decoder(tgt, memory, tgt_mask=tgt_mask, memory_mask=memory_mask,
-                              tgt_key_padding_mask=tgt_key_padding_mask,
-                              memory_key_padding_mask=memory_key_padding_mask)
+        output, decoder_self_attn_weights, decoder_enc_dec_attn_weights = self.decoder(tgt, memory, tgt_mask=tgt_mask, memory_mask=memory_mask, 
+                                                                                       tgt_key_padding_mask=tgt_key_padding_mask, 
+                                                                                       memory_key_padding_mask=memory_key_padding_mask)
         output = self.fc_out(output)
-        return output
+        return output, encoder_attn_weights, decoder_self_attn_weights, decoder_enc_dec_attn_weights
 
 
 class Tokenizer():
